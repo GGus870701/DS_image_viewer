@@ -1,0 +1,534 @@
+[2026-05-11 20:08:25] === Application Starting ===
+[2026-05-11 20:08:25] Version: 1.00.12, Date: 2026-05-11
+[2026-05-11 20:08:25] Searching plugins in: c:\ai_project\DS_image_viewer\plugins
+[2026-05-11 20:08:25] Attempting to load plugin file: dxf_viewer.py
+[2026-05-11 20:08:25] Successfully loaded plugin: DXF 뷰어
+[2026-05-11 20:08:25] Attempting to load plugin file: image_info.py
+[2026-05-11 20:08:25] Successfully loaded plugin: 이미지 상세 정보
+[2026-05-11 20:08:25] Attempting to load plugin file: simple_info.py
+[2026-05-11 20:08:25] Successfully loaded plugin: 이미지 정보 플러그인
+[2026-05-11 20:10:34] === Application Starting ===
+[2026-05-11 20:10:34] Version: 1.00.12, Date: 2026-05-11
+[2026-05-11 20:10:34] Searching plugins in: c:\ai_project\DS_image_viewer\plugins
+[2026-05-11 20:10:34] Attempting to load plugin file: dxf_viewer.py
+[2026-05-11 20:10:34] Successfully loaded plugin: DXF 뷰어
+[2026-05-11 20:10:34] Attempting to load plugin file: image_info.py
+[2026-05-11 20:10:34] Successfully loaded plugin: 이미지 상세 정보
+[2026-05-11 20:10:34] Attempting to load plugin file: simple_info.py
+[2026-05-11 20:10:34] Successfully loaded plugin: 이미지 정보 플러그인
+[2026-05-11 20:10:38] get_image_obj: Loading C:\Network\사진 샘플\20260507_154714.jpg
+[2026-05-11 20:10:38] Trying plugin: DXF 뷰어
+[2026-05-11 20:10:38] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:10:38] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:10:38] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:10:38] get_image_obj: Loading C:\Network\사진 샘플\20260507_154745.jpg
+[2026-05-11 20:10:38] Trying plugin: DXF 뷰어
+[2026-05-11 20:10:38] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:10:38] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:10:38] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:11:08] === Application Starting ===
+[2026-05-11 20:11:08] Version: 1.00.12, Date: 2026-05-11
+[2026-05-11 20:11:08] Searching plugins in: c:\ai_project\DS_image_viewer\plugins
+[2026-05-11 20:11:08] Attempting to load plugin file: dxf_viewer.py
+[2026-05-11 20:11:08] Successfully loaded plugin: DXF 뷰어
+[2026-05-11 20:11:08] Attempting to load plugin file: image_info.py
+[2026-05-11 20:11:08] Successfully loaded plugin: 이미지 상세 정보
+[2026-05-11 20:11:08] Attempting to load plugin file: simple_info.py
+[2026-05-11 20:11:08] Successfully loaded plugin: 이미지 정보 플러그인
+[2026-05-11 20:12:40] === Application Starting ===
+[2026-05-11 20:12:40] Version: 1.00.12, Date: 2026-05-11
+[2026-05-11 20:12:40] Searching plugins in: c:\ai_project\DS_image_viewer\plugins
+[2026-05-11 20:12:40] Attempting to load plugin file: dxf_viewer.py
+[2026-05-11 20:12:40] Successfully loaded plugin: DXF 뷰어
+[2026-05-11 20:12:40] Attempting to load plugin file: image_info.py
+[2026-05-11 20:12:40] Successfully loaded plugin: 이미지 상세 정보
+[2026-05-11 20:12:40] Attempting to load plugin file: simple_info.py
+[2026-05-11 20:12:40] Successfully loaded plugin: 이미지 정보 플러그인
+[2026-05-11 20:12:44] get_image_obj: Loading C:\Network\사진 샘플\20260507_154456.jpg
+[2026-05-11 20:12:44] Trying plugin: DXF 뷰어
+[2026-05-11 20:12:44] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:12:44] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:12:44] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:12:46] get_image_obj: Loading C:\Network\사진 샘플\20260507_154528.jpg
+[2026-05-11 20:12:46] Trying plugin: DXF 뷰어
+[2026-05-11 20:12:46] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:12:46] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:12:46] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:16:40] === Application Starting ===
+[2026-05-11 20:16:40] Version: 1.00.12, Date: 2026-05-11
+[2026-05-11 20:16:40] Searching plugins in: c:\ai_project\DS_image_viewer\plugins
+[2026-05-11 20:16:40] Attempting to load plugin file: dxf_viewer.py
+[2026-05-11 20:16:40] Successfully loaded plugin: DXF 뷰어
+[2026-05-11 20:16:40] Attempting to load plugin file: image_info.py
+[2026-05-11 20:16:40] Successfully loaded plugin: 이미지 상세 정보
+[2026-05-11 20:16:40] Attempting to load plugin file: simple_info.py
+[2026-05-11 20:16:40] Successfully loaded plugin: 이미지 정보 플러그인
+[2026-05-11 20:16:44] get_image_obj: Loading C:\Network\사진 샘플\20260507_154456.jpg
+[2026-05-11 20:16:44] Trying plugin: DXF 뷰어
+[2026-05-11 20:16:44] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:16:44] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:16:44] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:16:53] get_image_obj: Loading C:\Network\사진 샘플\20260507_154528.jpg
+[2026-05-11 20:16:53] Trying plugin: DXF 뷰어
+[2026-05-11 20:16:53] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:16:53] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:16:53] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:17:10] get_image_obj: Loading C:\Network\사진 샘플\20260507_154528.jpg
+[2026-05-11 20:17:10] Trying plugin: DXF 뷰어
+[2026-05-11 20:17:10] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:17:10] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:17:10] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:17:10] get_image_obj: Loading C:\Network\사진 샘플\20260507_154456.jpg
+[2026-05-11 20:17:10] Trying plugin: DXF 뷰어
+[2026-05-11 20:17:10] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:17:10] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:17:10] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:17:11] get_image_obj: Loading C:\Network\사진 샘플\13.jpg
+[2026-05-11 20:17:11] Trying plugin: DXF 뷰어
+[2026-05-11 20:17:11] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:17:11] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:17:11] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:17:12] get_image_obj: Loading C:\Network\사진 샘플\12.jpg
+[2026-05-11 20:17:12] Trying plugin: DXF 뷰어
+[2026-05-11 20:17:12] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:17:12] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:17:12] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:17:12] get_image_obj: Loading C:\Network\사진 샘플\13.jpg
+[2026-05-11 20:17:12] Trying plugin: DXF 뷰어
+[2026-05-11 20:17:12] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:17:12] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:17:12] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:17:13] get_image_obj: Loading C:\Network\사진 샘플\20260507_154456.jpg
+[2026-05-11 20:17:13] Trying plugin: DXF 뷰어
+[2026-05-11 20:17:13] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:17:13] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:17:13] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:17:14] get_image_obj: Loading C:\Network\사진 샘플\20260507_154528.jpg
+[2026-05-11 20:17:14] Trying plugin: DXF 뷰어
+[2026-05-11 20:17:14] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:17:14] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:17:14] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:17:14] get_image_obj: Loading C:\Network\사진 샘플\20260507_154600.jpg
+[2026-05-11 20:17:14] Trying plugin: DXF 뷰어
+[2026-05-11 20:17:14] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:17:14] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:17:14] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:17:15] get_image_obj: Loading C:\Network\사진 샘플\20260507_154714.jpg
+[2026-05-11 20:17:15] Trying plugin: DXF 뷰어
+[2026-05-11 20:17:15] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:17:15] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:17:15] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:17:15] get_image_obj: Loading C:\Network\사진 샘플\20260507_154745.jpg
+[2026-05-11 20:17:15] Trying plugin: DXF 뷰어
+[2026-05-11 20:17:15] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:17:15] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:17:15] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:17:15] get_image_obj: Loading C:\Network\사진 샘플\20260507_154826.jpg
+[2026-05-11 20:17:15] Trying plugin: DXF 뷰어
+[2026-05-11 20:17:15] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:17:15] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:17:15] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:17:15] get_image_obj: Loading C:\Network\사진 샘플\20260507_154828.jpg
+[2026-05-11 20:17:15] Trying plugin: DXF 뷰어
+[2026-05-11 20:17:15] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:17:15] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:17:15] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:17:15] get_image_obj: Loading C:\Network\사진 샘플\20260507_154826.jpg
+[2026-05-11 20:17:15] Trying plugin: DXF 뷰어
+[2026-05-11 20:17:15] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:17:15] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:17:15] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:17:16] get_image_obj: Loading C:\Network\사진 샘플\20260507_154745.jpg
+[2026-05-11 20:17:16] Trying plugin: DXF 뷰어
+[2026-05-11 20:17:16] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:17:16] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:17:16] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:17:16] get_image_obj: Loading C:\Network\사진 샘플\20260507_154714.jpg
+[2026-05-11 20:17:16] Trying plugin: DXF 뷰어
+[2026-05-11 20:17:16] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:17:16] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:17:16] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:17:16] get_image_obj: Loading C:\Network\사진 샘플\20260507_154600.jpg
+[2026-05-11 20:17:16] Trying plugin: DXF 뷰어
+[2026-05-11 20:17:16] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:17:16] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:17:16] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:17:16] get_image_obj: Loading C:\Network\사진 샘플\20260507_154528.jpg
+[2026-05-11 20:17:16] Trying plugin: DXF 뷰어
+[2026-05-11 20:17:16] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:17:16] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:17:16] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:17:17] get_image_obj: Loading C:\Network\사진 샘플\20260507_154456.jpg
+[2026-05-11 20:17:17] Trying plugin: DXF 뷰어
+[2026-05-11 20:17:17] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:17:17] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:17:17] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:17:17] get_image_obj: Loading C:\Network\사진 샘플\13.jpg
+[2026-05-11 20:17:17] Trying plugin: DXF 뷰어
+[2026-05-11 20:17:17] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:17:17] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:17:17] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:17:18] get_image_obj: Loading C:\Network\사진 샘플\12.jpg
+[2026-05-11 20:17:18] Trying plugin: DXF 뷰어
+[2026-05-11 20:17:18] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:17:18] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:17:18] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:17:19] get_image_obj: Loading C:\Network\사진 샘플\현암교 일반도_완.dxf
+[2026-05-11 20:17:19] Trying plugin: DXF 뷰어
+[2026-05-11 20:17:19] Plugin DXF 뷰어 successfully handled the file.
+[2026-05-11 20:18:04] === Application Starting ===
+[2026-05-11 20:18:04] Version: 1.00.12, Date: 2026-05-11
+[2026-05-11 20:18:04] Searching plugins in: c:\ai_project\DS_image_viewer\plugins
+[2026-05-11 20:18:04] Attempting to load plugin file: dxf_viewer.py
+[2026-05-11 20:18:04] Successfully loaded plugin: DXF 뷰어
+[2026-05-11 20:18:04] Attempting to load plugin file: image_info.py
+[2026-05-11 20:18:04] Successfully loaded plugin: 이미지 상세 정보
+[2026-05-11 20:18:04] Attempting to load plugin file: simple_info.py
+[2026-05-11 20:18:04] Successfully loaded plugin: 이미지 정보 플러그인
+[2026-05-11 20:20:58] === Application Starting ===
+[2026-05-11 20:20:58] Version: 1.00.12, Date: 2026-05-11
+[2026-05-11 20:20:58] Searching plugins in: c:\ai_project\DS_image_viewer\plugins
+[2026-05-11 20:20:58] Attempting to load plugin file: dxf_viewer.py
+[2026-05-11 20:20:58] Successfully loaded plugin: DXF 뷰어
+[2026-05-11 20:20:58] Attempting to load plugin file: image_info.py
+[2026-05-11 20:20:58] Successfully loaded plugin: 이미지 상세 정보
+[2026-05-11 20:20:58] Attempting to load plugin file: simple_info.py
+[2026-05-11 20:20:58] Successfully loaded plugin: 이미지 정보 플러그인
+[2026-05-11 20:23:52] === Application Starting ===
+[2026-05-11 20:23:52] Version: 1.00.12, Date: 2026-05-11
+[2026-05-11 20:23:52] Searching plugins in: c:\ai_project\DS_image_viewer\plugins
+[2026-05-11 20:23:52] Attempting to load plugin file: dxf_viewer.py
+[2026-05-11 20:23:52] Successfully loaded plugin: DXF 뷰어
+[2026-05-11 20:23:52] Attempting to load plugin file: image_info.py
+[2026-05-11 20:23:52] Successfully loaded plugin: 이미지 상세 정보
+[2026-05-11 20:23:52] Attempting to load plugin file: simple_info.py
+[2026-05-11 20:23:52] Successfully loaded plugin: 이미지 정보 플러그인
+[2026-05-11 20:24:01] get_image_obj: Loading C:\Network\사진 샘플\현암교 일반도_완.dxf
+[2026-05-11 20:24:01] Trying plugin: DXF 뷰어
+[2026-05-11 20:24:02] Plugin DXF 뷰어 successfully handled the file.
+[2026-05-11 20:24:07] get_image_obj: Loading C:\Network\사진 샘플\20260507_154456.jpg
+[2026-05-11 20:24:07] Trying plugin: DXF 뷰어
+[2026-05-11 20:24:07] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:24:07] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:24:07] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:24:08] get_image_obj: Loading C:\Network\사진 샘플\20260507_154528.jpg
+[2026-05-11 20:24:08] Trying plugin: DXF 뷰어
+[2026-05-11 20:24:08] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:24:08] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:24:08] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:24:09] get_image_obj: Loading C:\Network\사진 샘플\20260507_154600.jpg
+[2026-05-11 20:24:09] Trying plugin: DXF 뷰어
+[2026-05-11 20:24:09] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:24:09] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:24:09] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:24:09] get_image_obj: Loading C:\Network\사진 샘플\20260507_154714.jpg
+[2026-05-11 20:24:09] Trying plugin: DXF 뷰어
+[2026-05-11 20:24:09] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:24:09] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:24:09] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:26:37] === Application Starting ===
+[2026-05-11 20:26:37] Version: 1.00.12, Date: 2026-05-11
+[2026-05-11 20:26:37] Searching plugins in: c:\ai_project\DS_image_viewer\plugins
+[2026-05-11 20:26:37] Attempting to load plugin file: dxf_viewer.py
+[2026-05-11 20:26:37] Successfully loaded plugin: DXF 뷰어
+[2026-05-11 20:26:37] Attempting to load plugin file: image_info.py
+[2026-05-11 20:26:37] Successfully loaded plugin: 이미지 상세 정보
+[2026-05-11 20:26:37] Attempting to load plugin file: simple_info.py
+[2026-05-11 20:26:37] Successfully loaded plugin: 이미지 정보 플러그인
+[2026-05-11 20:26:45] get_image_obj: Loading C:\Network\사진 샘플\현암교 일반도_완.dxf
+[2026-05-11 20:26:45] Trying plugin: DXF 뷰어
+[2026-05-11 20:26:45] Plugin DXF 뷰어 successfully handled the file.
+[2026-05-11 20:28:00] === Application Starting ===
+[2026-05-11 20:28:00] Version: 1.00.12, Date: 2026-05-11
+[2026-05-11 20:28:00] Searching plugins in: c:\ai_project\DS_image_viewer\plugins
+[2026-05-11 20:28:00] Attempting to load plugin file: dxf_viewer.py
+[2026-05-11 20:28:00] Successfully loaded plugin: DXF 뷰어
+[2026-05-11 20:28:00] Attempting to load plugin file: image_info.py
+[2026-05-11 20:28:00] Successfully loaded plugin: 이미지 상세 정보
+[2026-05-11 20:28:00] Attempting to load plugin file: simple_info.py
+[2026-05-11 20:28:00] Successfully loaded plugin: 이미지 정보 플러그인
+[2026-05-11 20:28:04] get_image_obj: Loading C:\Network\사진 샘플\현암교 일반도_완.dxf
+[2026-05-11 20:28:04] Trying plugin: DXF 뷰어
+[2026-05-11 20:28:05] Plugin DXF 뷰어 successfully handled the file.
+[2026-05-11 20:29:50] === Application Starting ===
+[2026-05-11 20:29:50] Version: 1.00.12, Date: 2026-05-11
+[2026-05-11 20:29:50] Searching plugins in: c:\ai_project\DS_image_viewer\plugins
+[2026-05-11 20:29:50] Attempting to load plugin file: dxf_viewer.py
+[2026-05-11 20:29:50] Successfully loaded plugin: DXF 뷰어
+[2026-05-11 20:29:50] Attempting to load plugin file: image_info.py
+[2026-05-11 20:29:50] Successfully loaded plugin: 이미지 상세 정보
+[2026-05-11 20:29:50] Attempting to load plugin file: simple_info.py
+[2026-05-11 20:29:50] Successfully loaded plugin: 이미지 정보 플러그인
+[2026-05-11 20:29:53] get_image_obj: Loading C:\Network\사진 샘플\20260507_154456.jpg
+[2026-05-11 20:29:53] Trying plugin: DXF 뷰어
+[2026-05-11 20:29:53] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:29:53] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:29:53] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:30:03] get_image_obj: Loading C:\Network\사진 샘플\20260507_154456.jpg
+[2026-05-11 20:30:03] Trying plugin: DXF 뷰어
+[2026-05-11 20:30:03] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:30:03] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:30:03] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:31:04] === Application Starting ===
+[2026-05-11 20:31:04] Version: 1.00.12, Date: 2026-05-11
+[2026-05-11 20:31:04] Searching plugins in: c:\ai_project\DS_image_viewer\plugins
+[2026-05-11 20:31:04] Attempting to load plugin file: dxf_viewer.py
+[2026-05-11 20:31:04] Successfully loaded plugin: DXF 뷰어
+[2026-05-11 20:31:04] Attempting to load plugin file: image_info.py
+[2026-05-11 20:31:04] Successfully loaded plugin: 이미지 상세 정보
+[2026-05-11 20:31:04] Attempting to load plugin file: simple_info.py
+[2026-05-11 20:31:04] Successfully loaded plugin: 이미지 정보 플러그인
+[2026-05-11 20:31:10] get_image_obj: Loading C:\Network\사진 샘플\제목 없음.png
+[2026-05-11 20:31:10] Trying plugin: DXF 뷰어
+[2026-05-11 20:31:10] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:31:10] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:31:10] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:32:20] === Application Starting ===
+[2026-05-11 20:32:20] Version: 1.00.12, Date: 2026-05-11
+[2026-05-11 20:32:20] Searching plugins in: c:\ai_project\DS_image_viewer\plugins
+[2026-05-11 20:32:20] Attempting to load plugin file: dxf_viewer.py
+[2026-05-11 20:32:20] Successfully loaded plugin: DXF 뷰어
+[2026-05-11 20:32:20] Attempting to load plugin file: image_info.py
+[2026-05-11 20:32:20] Successfully loaded plugin: 이미지 상세 정보
+[2026-05-11 20:32:20] Attempting to load plugin file: simple_info.py
+[2026-05-11 20:32:20] Successfully loaded plugin: 이미지 정보 플러그인
+[2026-05-11 20:32:27] get_image_obj: Loading C:\Network\사진 샘플\제목 없음.png
+[2026-05-11 20:32:27] Trying plugin: DXF 뷰어
+[2026-05-11 20:32:27] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:32:27] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:32:27] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:34:49] === Application Starting ===
+[2026-05-11 20:34:49] Version: 1.00.12, Date: 2026-05-11
+[2026-05-11 20:34:49] Searching plugins in: c:\ai_project\DS_image_viewer\plugins
+[2026-05-11 20:34:49] Attempting to load plugin file: dxf_viewer.py
+[2026-05-11 20:34:49] Successfully loaded plugin: DXF 뷰어
+[2026-05-11 20:34:49] Attempting to load plugin file: image_info.py
+[2026-05-11 20:34:49] Successfully loaded plugin: 이미지 상세 정보
+[2026-05-11 20:34:49] Attempting to load plugin file: simple_info.py
+[2026-05-11 20:34:49] Successfully loaded plugin: 이미지 정보 플러그인
+[2026-05-11 20:34:52] get_image_obj: Loading C:\Network\사진 샘플\20260507_154826.jpg
+[2026-05-11 20:34:52] Trying plugin: DXF 뷰어
+[2026-05-11 20:34:52] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:34:52] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:34:52] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:35:59] === Application Starting ===
+[2026-05-11 20:35:59] Version: 1.00.12, Date: 2026-05-11
+[2026-05-11 20:35:59] Searching plugins in: c:\ai_project\DS_image_viewer\plugins
+[2026-05-11 20:35:59] Attempting to load plugin file: dxf_viewer.py
+[2026-05-11 20:35:59] Successfully loaded plugin: DXF 뷰어
+[2026-05-11 20:35:59] Attempting to load plugin file: image_info.py
+[2026-05-11 20:35:59] Successfully loaded plugin: 이미지 상세 정보
+[2026-05-11 20:35:59] Attempting to load plugin file: simple_info.py
+[2026-05-11 20:35:59] Successfully loaded plugin: 이미지 정보 플러그인
+[2026-05-11 20:36:02] get_image_obj: Loading C:\Network\사진 샘플\20260507_154600.jpg
+[2026-05-11 20:36:02] Trying plugin: DXF 뷰어
+[2026-05-11 20:36:02] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:36:02] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:36:02] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:36:06] get_image_obj: Loading C:\Network\사진 샘플\20260507_154528.jpg
+[2026-05-11 20:36:06] Trying plugin: DXF 뷰어
+[2026-05-11 20:36:06] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:36:06] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:36:06] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:36:06] get_image_obj: Loading C:\Network\사진 샘플\20260507_154456.jpg
+[2026-05-11 20:36:06] Trying plugin: DXF 뷰어
+[2026-05-11 20:36:06] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:36:06] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:36:06] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:36:07] get_image_obj: Loading C:\Network\사진 샘플\13.jpg
+[2026-05-11 20:36:07] Trying plugin: DXF 뷰어
+[2026-05-11 20:36:07] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:36:07] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:36:07] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:36:08] get_image_obj: Loading C:\Network\사진 샘플\12.jpg
+[2026-05-11 20:36:08] Trying plugin: DXF 뷰어
+[2026-05-11 20:36:08] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:36:08] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:36:08] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:36:08] get_image_obj: Loading C:\Network\사진 샘플\현암교 일반도_완.dxf
+[2026-05-11 20:36:08] Trying plugin: DXF 뷰어
+[2026-05-11 20:36:09] Plugin DXF 뷰어 successfully handled the file.
+[2026-05-11 20:36:16] get_image_obj: Loading C:\Network\사진 샘플\12.jpg
+[2026-05-11 20:36:16] Trying plugin: DXF 뷰어
+[2026-05-11 20:36:16] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:36:16] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:36:16] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:36:23] get_image_obj: Loading C:\Network\사진 샘플\13.jpg
+[2026-05-11 20:36:23] Trying plugin: DXF 뷰어
+[2026-05-11 20:36:23] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:36:23] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:36:23] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:36:25] get_image_obj: Loading C:\Network\사진 샘플\20260507_154456.jpg
+[2026-05-11 20:36:25] Trying plugin: DXF 뷰어
+[2026-05-11 20:36:25] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:36:25] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:36:25] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:36:26] get_image_obj: Loading C:\Network\사진 샘플\13.jpg
+[2026-05-11 20:36:26] Trying plugin: DXF 뷰어
+[2026-05-11 20:36:26] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:36:26] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:36:26] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:36:41] === Application Starting ===
+[2026-05-11 20:36:41] Version: 1.00.12, Date: 2026-05-11
+[2026-05-11 20:36:41] Searching plugins in: c:\ai_project\DS_image_viewer\plugins
+[2026-05-11 20:36:41] Attempting to load plugin file: dxf_viewer.py
+[2026-05-11 20:36:41] Successfully loaded plugin: DXF 뷰어
+[2026-05-11 20:36:41] Attempting to load plugin file: image_info.py
+[2026-05-11 20:36:41] Successfully loaded plugin: 이미지 상세 정보
+[2026-05-11 20:36:41] Attempting to load plugin file: simple_info.py
+[2026-05-11 20:36:41] Successfully loaded plugin: 이미지 정보 플러그인
+[2026-05-11 20:36:47] get_image_obj: Loading C:\Network\사진 샘플\20260507_154828.jpg
+[2026-05-11 20:36:47] Trying plugin: DXF 뷰어
+[2026-05-11 20:36:47] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:36:47] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:36:47] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:37:56] === Application Starting ===
+[2026-05-11 20:37:56] Version: 1.00.12, Date: 2026-05-11
+[2026-05-11 20:37:56] Searching plugins in: c:\ai_project\DS_image_viewer\plugins
+[2026-05-11 20:37:56] Attempting to load plugin file: dxf_viewer.py
+[2026-05-11 20:37:56] Successfully loaded plugin: DXF 뷰어
+[2026-05-11 20:37:56] Attempting to load plugin file: image_info.py
+[2026-05-11 20:37:56] Successfully loaded plugin: 이미지 상세 정보
+[2026-05-11 20:37:56] Attempting to load plugin file: simple_info.py
+[2026-05-11 20:37:56] Successfully loaded plugin: 이미지 정보 플러그인
+[2026-05-11 20:37:59] get_image_obj: Loading C:\Network\사진 샘플\20260507_154745.jpg
+[2026-05-11 20:37:59] Trying plugin: DXF 뷰어
+[2026-05-11 20:37:59] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:37:59] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:37:59] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:38:10] get_image_obj: Loading C:\Network\사진 샘플\20260507_154714.jpg
+[2026-05-11 20:38:10] Trying plugin: DXF 뷰어
+[2026-05-11 20:38:10] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:38:10] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:38:10] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:38:11] get_image_obj: Loading C:\Network\사진 샘플\20260507_154600.jpg
+[2026-05-11 20:38:11] Trying plugin: DXF 뷰어
+[2026-05-11 20:38:11] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:38:11] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:38:11] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:38:11] get_image_obj: Loading C:\Network\사진 샘플\20260507_154528.jpg
+[2026-05-11 20:38:11] Trying plugin: DXF 뷰어
+[2026-05-11 20:38:11] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:38:11] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:38:11] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:38:11] get_image_obj: Loading C:\Network\사진 샘플\20260507_154456.jpg
+[2026-05-11 20:38:11] Trying plugin: DXF 뷰어
+[2026-05-11 20:38:11] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:38:11] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:38:11] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:38:12] get_image_obj: Loading C:\Network\사진 샘플\13.jpg
+[2026-05-11 20:38:12] Trying plugin: DXF 뷰어
+[2026-05-11 20:38:12] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:38:12] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:38:12] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:38:12] get_image_obj: Loading C:\Network\사진 샘플\12.jpg
+[2026-05-11 20:38:12] Trying plugin: DXF 뷰어
+[2026-05-11 20:38:12] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:38:12] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:38:12] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:38:13] get_image_obj: Loading C:\Network\사진 샘플\현암교 일반도_완.dxf
+[2026-05-11 20:38:13] Trying plugin: DXF 뷰어
+[2026-05-11 20:38:13] Plugin DXF 뷰어 successfully handled the file.
+[2026-05-11 20:38:18] get_image_obj: Loading C:\Network\사진 샘플\12.jpg
+[2026-05-11 20:38:18] Trying plugin: DXF 뷰어
+[2026-05-11 20:38:18] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:38:18] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:38:18] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:38:18] get_image_obj: Loading C:\Network\사진 샘플\13.jpg
+[2026-05-11 20:38:18] Trying plugin: DXF 뷰어
+[2026-05-11 20:38:18] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:38:18] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:38:18] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:38:18] get_image_obj: Loading C:\Network\사진 샘플\20260507_154456.jpg
+[2026-05-11 20:38:18] Trying plugin: DXF 뷰어
+[2026-05-11 20:38:18] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:38:18] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:38:18] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:38:19] get_image_obj: Loading C:\Network\사진 샘플\20260507_154528.jpg
+[2026-05-11 20:38:19] Trying plugin: DXF 뷰어
+[2026-05-11 20:38:19] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:38:19] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:38:19] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:38:19] get_image_obj: Loading C:\Network\사진 샘플\20260507_154600.jpg
+[2026-05-11 20:38:19] Trying plugin: DXF 뷰어
+[2026-05-11 20:38:19] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:38:19] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:38:19] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:38:19] get_image_obj: Loading C:\Network\사진 샘플\20260507_154714.jpg
+[2026-05-11 20:38:19] Trying plugin: DXF 뷰어
+[2026-05-11 20:38:19] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:38:19] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:38:19] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:45:20] === Application Starting ===
+[2026-05-11 20:45:20] Version: 1.00.12, Date: 2026-05-11
+[2026-05-11 20:45:20] Searching plugins in: c:\ai_project\DS_image_viewer\plugins
+[2026-05-11 20:45:20] Attempting to load plugin file: dxf_viewer.py
+[2026-05-11 20:45:20] Successfully loaded plugin: DXF 뷰어
+[2026-05-11 20:45:20] Attempting to load plugin file: image_info.py
+[2026-05-11 20:45:20] Successfully loaded plugin: 이미지 상세 정보
+[2026-05-11 20:45:20] Attempting to load plugin file: simple_info.py
+[2026-05-11 20:45:20] Successfully loaded plugin: 이미지 정보 플러그인
+[2026-05-11 20:45:24] get_image_obj: Loading C:\Network\사진 샘플\20260507_154456.jpg
+[2026-05-11 20:45:24] Trying plugin: DXF 뷰어
+[2026-05-11 20:45:24] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:45:24] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:45:24] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:47:41] === Application Starting ===
+[2026-05-11 20:47:41] Version: 1.00.12, Date: 2026-05-11
+[2026-05-11 20:47:41] Searching plugins in: c:\ai_project\DS_image_viewer\plugins
+[2026-05-11 20:47:41] Attempting to load plugin file: dxf_viewer.py
+[2026-05-11 20:47:41] Successfully loaded plugin: DXF 뷰어
+[2026-05-11 20:47:41] Attempting to load plugin file: image_info.py
+[2026-05-11 20:47:41] Successfully loaded plugin: 이미지 상세 정보
+[2026-05-11 20:47:41] Attempting to load plugin file: simple_info.py
+[2026-05-11 20:47:41] Successfully loaded plugin: 이미지 정보 플러그인
+[2026-05-11 20:47:44] get_image_obj: Loading C:\Network\사진 샘플\20260507_154456.jpg
+[2026-05-11 20:47:44] Trying plugin: DXF 뷰어
+[2026-05-11 20:47:44] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:47:44] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:47:44] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:47:48] get_image_obj: Loading C:\Network\사진 샘플\20260507_154528.jpg
+[2026-05-11 20:47:48] Trying plugin: DXF 뷰어
+[2026-05-11 20:47:48] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:47:48] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:47:48] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:48:08] get_image_obj: Loading C:\Network\사진 샘플\13.jpg
+[2026-05-11 20:48:08] Trying plugin: DXF 뷰어
+[2026-05-11 20:48:08] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:48:08] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:48:08] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:48:09] get_image_obj: Loading C:\Network\사진 샘플\12.jpg
+[2026-05-11 20:48:09] Trying plugin: DXF 뷰어
+[2026-05-11 20:48:09] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:48:09] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:48:09] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:48:09] get_image_obj: Loading C:\Network\사진 샘플\현암교 일반도_완.dxf
+[2026-05-11 20:48:09] Trying plugin: DXF 뷰어
+[2026-05-11 20:48:10] Plugin DXF 뷰어 successfully handled the file.
+[2026-05-11 20:48:50] get_image_obj: Loading C:\Network\사진 샘플\20260507_154528.jpg
+[2026-05-11 20:48:50] Trying plugin: DXF 뷰어
+[2026-05-11 20:48:50] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:48:50] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:48:50] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:48:54] get_image_obj: Loading C:\Network\사진 샘플\20260507_154600.jpg
+[2026-05-11 20:48:54] Trying plugin: DXF 뷰어
+[2026-05-11 20:48:54] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:48:54] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:48:54] No plugin handled the file. Falling back to PIL.
+[2026-05-11 20:49:31] get_image_obj: Loading C:\Network\사진 샘플\현암교 일반도_완.dxf
+[2026-05-11 20:49:31] Trying plugin: DXF 뷰어
+[2026-05-11 20:49:31] Plugin DXF 뷰어 successfully handled the file.
+[2026-05-11 20:57:07] === Application Starting ===
+[2026-05-11 20:57:07] Version: 1.00.13, Date: 2026-05-11
+[2026-05-11 20:57:07] Searching plugins in: c:\ai_project\DS_image_viewer\plugins
+[2026-05-11 20:57:07] Attempting to load plugin file: dxf_viewer.py
+[2026-05-11 20:57:07] Successfully loaded plugin: DXF 뷰어
+[2026-05-11 20:57:07] Attempting to load plugin file: image_info.py
+[2026-05-11 20:57:07] Successfully loaded plugin: 이미지 상세 정보
+[2026-05-11 20:57:07] Attempting to load plugin file: simple_info.py
+[2026-05-11 20:57:07] Successfully loaded plugin: 이미지 정보 플러그인
+[2026-05-11 20:57:10] get_image_obj: Loading C:\Network\사진 샘플\20260507_154714.jpg
+[2026-05-11 20:57:10] Trying plugin: DXF 뷰어
+[2026-05-11 20:57:10] Trying plugin: 이미지 상세 정보
+[2026-05-11 20:57:10] Trying plugin: 이미지 정보 플러그인
+[2026-05-11 20:57:10] No plugin handled the file. Falling back to PIL.

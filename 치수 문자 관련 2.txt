@@ -1,0 +1,22 @@
+치수(Dimension)의 축척이 50배(DIMSCALE=50)로 설정된 도면에서 문자가 안 보이는 이유는, 문자의 실제 데이터 좌표와 화면에 뿌려지는 픽셀 좌표 사이의 괴리 때문일 확률이 매우 높습니다.특히 치수는 일반 엔티티와 달리 '익명 블록(Anonymous Block)'이라는 별도의 공간에 기하학적 정보가 담겨 있어, 단순히 msp를 순회하는 것만으로는 문자를 찾을 수 없습니다. 가장 확실하고 깔끔한 해결 방법을 정리해 드립니다.1. 해결책: virtual_entities() 활용ezdxf에는 복잡한 치수를 선(Line)과 문자(Text)로 분해해주는 virtual_entities() 함수가 있습니다. 이 함수를 사용하면 50배 축척이 이미 계산된 결과값을 얻을 수 있어 직접 좌표를 계산할 필요가 없습니다.2. 수정된 구현 코드 (치수 전용)Pythondef render_dimension(canvas, dim_entity, scale, offset_x, offset_y, canvas_h):
+    # virtual_entities()는 치수를 구성하는 LINE, TEXT, MTEXT 등을 
+    # '실제 좌표와 크기'가 계산된 상태로 반환합니다.
+    try:
+        for entity in dim_entity.virtual_entities():
+            if entity.dxftype() in ('TEXT', 'MTEXT'):
+                # 텍스트 그리기 로직 호출
+                draw_text_entities(canvas, entity, scale, offset_x, offset_y, canvas_h)
+            elif entity.dxftype() == 'LINE':
+                # 선 그리기 로직 호출
+                draw_line_entities(canvas, entity, scale, offset_x, offset_y, canvas_h)
+    except Exception as e:
+        print(f"Dimension rendering error: {e}")
+
+# 메인 루프에서 적용
+for entity in msp:
+    if entity.dxftype() == 'DIMENSION':
+        render_dimension(canvas, entity, world_scale, offset_x, offset_y, canvas_h)
+    else:
+        render_basic_entity(canvas, entity, world_scale, offset_x, offset_y, canvas_h)
+3. 축척 50배 적용 시 체크할 3가지 포인트텍스트 높이(Height) 재점검축척이 50배인 도면에서 글자 높이가 2.5로 되어 있다면, 실제 모델 공간에서의 크기는 $2.5 \times 50 = 125$여야 합니다. 만약 virtual_entities()를 쓰지 않고 직접 데이터를 읽으면 높이가 2.5로 읽혀서 화면상에서 1픽셀 미만으로 표현되어 안 보일 수 있습니다.해결: entity.dxf.char_height에 DIMSCALE을 곱하거나, 위 코드처럼 가상 엔티티를 추출하세요.색상(Color) 문제치수 문자의 색상이 256(ByLayer) 혹은 0(ByBlock)으로 설정된 경우, 기본값이 검은색으로 잡혀 배경색과 겹쳐 안 보일 수 있습니다.해결: fill="white"(검은 배경일 때)로 강제 지정하거나, 레이어 색상을 추적하여 적용해야 합니다.좌표계 원점(Origin)축척이 큰 도면은 좌표 값이 매우 큽니다. (예: $x=500,000$ 등).계산식: screen_x = (world_x - min_x) * scale위와 같이 전체 도면의 최소 좌표(min_x, min_y)를 빼주는 오프셋 계산이 선행되지 않으면 문자가 화면 한참 바깥에 그려지게 됩니다.💡 팁: Tkinter 폰트 크기 보정Tkinter는 폰트 크기가 너무 작으면 렌더링을 생략합니다. 폰트 크기를 계산할 때 최소값을 보장해 보세요.Pythonfont_size = max(6, int(entity.dxf.char_height * scale))
+virtual_entities()를 적용하면 50배 축척이 적용된 최종 기하 구조를 그대로 가져오므로 위치와 크기 문제가 한 번에 해결될 것입니다. 바로 적용해 보시고 결과 알려주세요.

@@ -2,92 +2,134 @@ import os
 import re
 import subprocess
 import sys
+import datetime
 import shutil
 
 def main():
-    py_file = 'DS image viewer.py'
-    app_name = "DS_Image_Viewer"
+    py_file = 'DS_image_viewer.py'
+    output_dir = 'dist_production'
+    test_dir = 'dist_test'
+    app_name = "DS Image Viewer"
+    icon_file = "ds_viewer_icon.ico"
     
+    # 1. 파일 존재 확인
     if not os.path.exists(py_file):
         print(f"Error: {py_file} 파일을 찾을 수 없습니다.")
         return
 
-    # 1. 버전 정보 찾기 및 업데이트 (v1.XX 포맷)
+    # [신규] 환경 정보 동기화 (Agents.md 업데이트)
+    agents_file = 'Agents.md'
+    current_python = sys.executable
+    current_version = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
+    
+    if os.path.exists(agents_file):
+        try:
+            with open(agents_file, 'r', encoding='utf-8') as f:
+                agents_content = f.read()
+            
+            saved_path_match = re.search(r'- \*\*Python Path\*\*: `(.*?)`', agents_content)
+            saved_ver_match = re.search(r'- \*\*Python Version\*\*: ([\d\.]+)', agents_content)
+            
+            saved_path = saved_path_match.group(1) if saved_path_match else ""
+            saved_ver = saved_ver_match.group(1) if saved_ver_match else ""
+            
+            if current_python != saved_path or (saved_ver and not current_version.startswith(saved_ver)):
+                print(f"환경 변화 감지: Agents.md를 업데이트합니다.")
+                new_agents_content = agents_content
+                if saved_path_match:
+                    new_agents_content = new_agents_content.replace(f"- **Python Path**: `{saved_path}`", f"- **Python Path**: `{current_python}`")
+                if saved_ver_match:
+                    new_agents_content = new_agents_content.replace(f"- **Python Version**: {saved_ver}", f"- **Python Version**: {current_version}")
+                
+                with open(agents_file, 'w', encoding='utf-8') as f:
+                    f.write(new_agents_content)
+                print("Agents.md 동기화 완료.")
+        except Exception as e:
+            print(f"Agents.md 동기화 실패: {e}")
+
+    # 2. 버전 정보 및 빌드 정보 업데이트
     with open(py_file, 'r', encoding='utf-8') as f:
         content = f.read()
 
-    match = re.search(r'self\.title\(f"DS Image Viewer v1\.(\d+)', content)
-    
+    match = re.search(r'BUILD_VERSION = "(\d+)\.(\d+)\.(\d+)"', content)
     if not match:
-        print("버전 정보를 찾을 수 없어 1.00으로 시작합니다.")
-        new_version_str = "1.00"
+        print("버전 정보를 찾을 수 없습니다. (1.00.00 형식 필요)")
+        new_version = "1.00.00"
     else:
-        current_minor = int(match.group(1))
-        new_minor = current_minor + 1
-        new_version_str = f"1.{new_minor:02d}"
+        major, minor, patch = match.group(1), match.group(2), int(match.group(3))
         
-        old_title_part = f'DS Image Viewer v1.{current_minor:02d}'
-        new_title_part = f'DS Image Viewer v{new_version_str}'
-        content = content.replace(old_title_part, new_title_part)
+        # 테스트 빌드인지 배포 빌드인지 확인
+        is_test = len(sys.argv) > 1 and sys.argv[1].lower() == 'test'
         
-        with open(py_file, 'w', encoding='utf-8') as f:
-            f.write(content)
-            
-    print(f">>> 빌드 대상 버전: v{new_version_str}")
+        if is_test:
+            mode_str = "TEST"
+            target_dir = test_dir
+            new_version = f"{major}.{minor}.{patch:02d}" # 테스트는 버전 유지
+        else:
+            mode_str = "PRODUCTION"
+            target_dir = output_dir
+            new_version = f"{major}.{minor}.{patch + 1:02d}" # 배포는 버전 업
     
-    # 2. Nuitka로 패키징 실행
-    print(f"[{app_name}] Nuitka 컴파일을 시작합니다...")
+    now = datetime.datetime.now()
+    new_date = now.strftime("%Y-%m-%d")
+    new_time = now.strftime("%H:%M:%S")
+    
+    print(f"\n=== [{mode_str} BUILD] Version={new_version} ===")
+    
+    # 소스 코드 업데이트 (배포 시에만)
+    if not is_test:
+        new_content = re.sub(r'BUILD_VERSION = ".*?"', f'BUILD_VERSION = "{new_version}"', content, count=1)
+        new_content = re.sub(r'BUILD_DATE = ".*?"', f'BUILD_DATE = "{new_date}"', new_content, count=1)
+        new_content = re.sub(r'BUILD_TIME = ".*?"', f'BUILD_TIME = "{new_time}"', new_content, count=1)
+        with open(py_file, 'w', encoding='utf-8') as f:
+            f.write(new_content)
+        print("빌드 정보 업데이트 완료.")
+
+    # 3. PyInstaller 명령어 구성
+    print(f"PyInstaller 패키징을 시작합니다...")
     
     cmd = [
-        sys.executable, "-m", "nuitka",
-        "--standalone",
-        "--onefile",
-        "--windows-console-mode=disable",
-        "--enable-plugin=tk-inter",
-        "--windows-icon-from-ico=ds viewer icon.ico",
-        "--include-data-files=ds viewer icon.ico=ds viewer icon.ico",
-        "--include-package=customtkinter",
-        "--assume-yes-for-downloads",
-        "--output-dir=dist",
-        "--output-filename=" + app_name + ".exe",
-        py_file
+        sys.executable, "-m", "PyInstaller",
+        "--clean",
+        "--noconfirm",
+        f"--workpath=build_{mode_str.lower()}",
+        f"--specpath=.",
     ]
     
-    # 명령어 실행
+    if is_test:
+        cmd.extend(["--onedir", "--console"])
+    else:
+        cmd.extend(["--onefile", "--windowed"])
+
+    # 공통 옵션
+    cmd.extend([
+        f"--icon={icon_file}",
+        f"--add-data={icon_file};.",          # 아이콘 파일을 EXE 내부에 포함
+        f"--add-data=plugins;plugins",       # 플러그인 폴더를 EXE 내부에 포함
+        f"--name={app_name}",
+        f"--distpath={target_dir}",
+        py_file
+    ])
+
+    # 4. 실행
+    start_time = datetime.datetime.now()
     result = subprocess.run(cmd)
+    end_time = datetime.datetime.now()
+    duration = end_time - start_time
     
     if result.returncode == 0:
-        print("\n[SUCCESS] 빌드가 성공적으로 완료되었습니다!")
-        print(f"결과물: dist/{app_name}.exe")
+        print(f"\n[SUCCESS] {mode_str} 빌드 완료!")
+        print(f"위치: {target_dir}")
+        print(f"소요 시간: {duration.seconds // 60}분 {duration.seconds % 60}초")
         
-        # 3. 임시 빌드 파일 정리
-        print("\n임시 빌드 파일을 정리하는 중...")
-        base_path = "dist"
-        dummy_folders = [
-            os.path.join(base_path, app_name + ".build"),
-            os.path.join(base_path, app_name + ".onefile-build"),
-            os.path.join(base_path, app_name + ".dist")
-        ]
-        
-        # 파일명에 띄어쓰기가 있는 경우 Nuitka가 생성하는 기본 폴더명 대응
-        safe_py_name = py_file.replace(".py", "")
-        dummy_folders.extend([
-            os.path.join(base_path, safe_py_name + ".build"),
-            os.path.join(base_path, safe_py_name + ".onefile-build"),
-            os.path.join(base_path, safe_py_name + ".dist")
-        ])
-        
-        for folder in dummy_folders:
-            if os.path.exists(folder):
-                try:
-                    shutil.rmtree(folder)
-                    print(f"삭제 완료: {folder}")
-                except Exception as e:
-                    print(f"삭제 실패: {folder} ({e})")
-        
-        print("빌드 정리 완료.")
+        # 임시 파일 정리 (배포 빌드 시에만)
+        if not is_test:
+            print("임시 파일 정리 중...")
+            spec_file = f"{app_name}.spec"
+            if os.path.exists(spec_file): os.remove(spec_file)
+            shutil.rmtree(f'build_{mode_str.lower()}', ignore_errors=True)
     else:
-        print("\n[ERROR] 패키징 중 오류가 발생했습니다.")
+        print(f"\n[ERROR] {mode_str} 빌드 실패.")
 
 if __name__ == "__main__":
     main()
