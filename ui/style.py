@@ -48,25 +48,17 @@ def get_stylesheet() -> str:
         background-color: #1e272e;
         color: #d2dae2;
         font-family: '{UI_FONT_NAME}';
-        font-size: 13px;
+        font-size: 14px;
         font-weight: bold;
+        border-top: 1px solid #3d3d3d;
     }}
     QStatusBar::item {{
-        border: None;
+        border: none;
     }}
     QLabel {{
         color: #d2dae2;
         font-family: '{UI_FONT_NAME}';
         font-size: 13px;
-    }}
-    QComboBox {{
-        background-color: #2f3542;
-        color: #ffffff;
-        border: 1px solid #3d3d3d;
-        border-radius: 4px;
-        padding: 2px 5px;
-        font-family: '{UI_FONT_NAME}';
-        font-size: 14px;
     }}
     QComboBox QAbstractItemView {{
         background-color: #2f3542;
@@ -163,19 +155,29 @@ def get_stylesheet() -> str:
         color: #ffffff;
         border: 1px solid #3d3d3d;
         border-radius: 4px;
-        padding: 2px 5px;
-        min-height: 23px;
+        padding: 0px 4px;
+        min-height: 22px;
         font-family: '{UI_FONT_NAME}';
         font-size: 13px;
     }}
-    QComboBox::drop-down {{
+    QComboBox QLineEdit {{
+        background: transparent;
         border: none;
-        width: 20px;
+        padding: 0px;
+        margin: 0px;
+        color: #ffffff;
     }}
-    QComboBox::down-arrow {{
+    QStatusBar::item {{
+        border: none;
+    }}
+    QToolButton::menu-indicator {{
         image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAyNCAyNCc+PHBhdGggZmlsbD0nI0EwQjBDNScgZD0nTTcgMTBsNSA1IDUtNXonLz48L3N2Zz4=");
-        width: 12px;
-        height: 12px;
+        subcontrol-origin: padding;
+        subcontrol-position: bottom right;
+        right: 2px;
+        bottom: 2px;
+        width: 10px;
+        height: 10px;
     }}
     QCheckBox, QRadioButton {{
         color: #d2dae2;

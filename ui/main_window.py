@@ -9,7 +9,7 @@ import webbrowser
 
 from PySide6.QtWidgets import (QMainWindow, QFileDialog, QToolBar, QStatusBar,
                                 QLabel, QWidget, QSizePolicy, QMenu, QMessageBox,
-                                QToolButton, QStackedWidget, QComboBox, QHBoxLayout)
+                                QToolButton, QStackedWidget, QLineEdit, QHBoxLayout)
 from PySide6.QtGui import QAction, QIcon, QKeySequence
 from PySide6.QtCore import Qt, QSize, QTimer, QRectF
 
@@ -81,8 +81,7 @@ class MainWindow(QMainWindow):
         # 상태바
         self._status = QStatusBar()
         self.setStatusBar(self._status)
-        self._status.setSizeGripEnabled(False)
-        self._status.setStyleSheet(f"font-family: '{UI_FONT_NAME}'; font-size: 12px; color: #A0B0C5; border-top: 1px solid #1A2A44;")
+        self._status.setFixedHeight(32) # 상태바 높이 32px로 확장
 
         # 상태바 위젯 구성
         # 1. 좌측: 파일 정보 (아이콘 + 텍스트)
@@ -115,18 +114,18 @@ class MainWindow(QMainWindow):
         size_layout.addWidget(self._lbl_size)
         size_layout.addStretch() # 오른쪽으로 밀어내기
         
-        # 3. 우측: 줌 배율 (드롭다운)
-        self._zoom_combo = QComboBox()
-        self._zoom_combo.setEditable(True)
-        self._zoom_combo.addItems(["10%", "25%", "50%", "75%", "100%", "125%", "150%", "200%", "300%", "400%", "500%"])
-        self._zoom_combo.setCurrentText("100%")
-        self._zoom_combo.setFixedWidth(90)
-        self._zoom_combo.setFixedHeight(26) # 상태바 높이에 맞춰 축소
-        self._zoom_combo.currentTextChanged.connect(self._on_zoom_combo_changed)
+        # 3. 우측: 줌 배율 (인풋 박스)
+        self._zoom_input = QLineEdit()
+        self._zoom_input.setText("100%")
+        self._zoom_input.setFixedWidth(60)
+        self._zoom_input.setFixedHeight(24)
+        self._zoom_input.setAlignment(Qt.AlignCenter)
+        self._zoom_input.returnPressed.connect(self._on_zoom_input_changed)
         
         self._status.addWidget(self._file_container, 2)
         self._status.addWidget(self._size_container, 1)
-        self._status.addPermanentWidget(self._zoom_combo)
+        self._status.addPermanentWidget(self._zoom_input)
+        self._status.setSizeGripEnabled(False)
 
     def _create_toolbar(self):
         tb = QToolBar("Main Toolbar")
@@ -490,18 +489,18 @@ class MainWindow(QMainWindow):
     # 슬롯
     # ──────────────────────────────────────────────
     def _on_zoom_changed(self, scale: float):
-        # 콤보박스 텍스트 업데이트 (시그널 루프 방지 위해 blockSignals 사용)
-        self._zoom_combo.blockSignals(True)
-        self._zoom_combo.setCurrentText(f"{int(scale * 100)}%")
-        self._zoom_combo.blockSignals(False)
+        # 인풋 박스 텍스트 업데이트
+        self._zoom_input.setText(f"{int(scale * 100)}%")
 
-    def _on_zoom_combo_changed(self, text: str):
+    def _on_zoom_input_changed(self):
+        text = self._zoom_input.text()
         vp = self._get_active_viewport()
         try:
             val = int(text.replace("%", ""))
             vp.set_zoom(val / 100.0)
         except:
-            pass
+            # 입력 오류 시 현재 배율로 복구
+            self._on_zoom_changed(vp._get_zoom_scale())
 
     def _on_file_renamed(self, old_path: str, new_path: str):
         """정보 패널에서 파일명이 변경된 경우 처리"""
