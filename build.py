@@ -1,16 +1,9 @@
-"""
-DS Image Viewer — 빌드 스크립트 (DS_capture 방식 완전 채택)
-1. core/version.py 자동 업데이트
-2. walkthrough.md 자동 기록
-3. PyInstaller onedir 패키징
-"""
 import os
 import re
 import subprocess
 import sys
 import datetime
 import shutil
-
 
 def main():
     py_file = 'main.py'
@@ -101,8 +94,10 @@ def main():
     
     excludes = [
         'numpy', 'matplotlib', 'pandas', 'scipy', 'PyQt5', 'PyQt6',
-        'IPython', 'notebook', 'jedi', 'setuptools', 'PySide6.QtWebEngineCore',
-        'PySide6.QtWebEngineWidgets', 'PySide6.Qt3DCore', 'PySide6.QtCharts'
+        'IPython', 'notebook', 'jedi', 'setuptools', 
+        'PySide6.QtWebEngineCore', 'PySide6.QtWebEngineWidgets', 'PySide6.Qt3DCore', 
+        'PySide6.QtCharts', 'PySide6.QtQml', 'PySide6.QtQuick', 'PySide6.QtPdf',
+        'PySide6.QtVirtualKeyboard', 'PySide6.QtMultimedia', 'PySide6.QtSql', 'PySide6.QtTest'
     ]
     
     cmd = [
@@ -156,7 +151,7 @@ def main():
             
             update_walkthrough(new_version, build_time_full, desc)
 
-        # 임시 파일 정리
+        # 임시 파일 정리 및 압축 (배포 빌드 시에만)
         if not is_test:
             print("임시 파일 정리 중...")
             spec_file = f"{app_name}.spec"

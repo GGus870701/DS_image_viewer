@@ -1,24 +1,26 @@
 from PySide6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLabel, 
                                 QPushButton, QGroupBox, QMessageBox)
 from PySide6.QtCore import Qt
-from core.registry_mgr import register_context_menu, unregister_context_menu, is_context_menu_registered
+from core.registry_mgr import (register_context_menu, unregister_context_menu, is_context_menu_registered,
+                               register_default_program, unregister_default_program, is_default_program_registered)
 
 class SettingsDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("환경설정 (Settings)")
-        self.resize(400, 200)
+        self.resize(450, 320)
         self._init_ui()
         self._update_ui_state()
 
     def _init_ui(self):
         main_layout = QVBoxLayout(self)
+        main_layout.setSpacing(15)
         
-        # Windows 탐색기 연동 그룹
+        # 1. Windows 탐색기 연동 그룹
         group_explorer = QGroupBox("Windows 탐색기 연동")
         layout_explorer = QVBoxLayout(group_explorer)
         
-        lbl_desc = QLabel("Windows 탐색기 우클릭 메뉴에 'DS Image Viewer' 상위 메뉴와\n'이미지 크기 변환', '이미지 편집기' 하위 메뉴를 추가합니다.")
+        lbl_desc = QLabel("탐색기 우클릭 메뉴에 '이미지 크기 변환' 등의 기능을 추가합니다.")
         lbl_desc.setStyleSheet("color: #AAAAAA;")
         layout_explorer.addWidget(lbl_desc)
         
@@ -31,12 +33,32 @@ class SettingsDialog(QDialog):
         h_layout.addStretch()
         h_layout.addWidget(self.btn_toggle_registry)
         layout_explorer.addLayout(h_layout)
-        
         main_layout.addWidget(group_explorer)
+
+        # 2. 기본 연결 프로그램 설정 그룹
+        group_default = QGroupBox("기본 연결 프로그램 설정")
+        layout_default = QVBoxLayout(group_default)
+        
+        lbl_desc_def = QLabel("JPG, PNG 등 이미지 파일을 열 때 사용할 수 있는 프로그램 목록에\nDS Image Viewer를 등록하거나 제거합니다.")
+        lbl_desc_def.setStyleSheet("color: #AAAAAA;")
+        layout_default.addWidget(lbl_desc_def)
+        
+        h_layout_def = QHBoxLayout()
+        self.lbl_status_def = QLabel("현재 상태: 확인 중...")
+        self.btn_toggle_default = QPushButton("프로그램 등록 / 해제")
+        self.btn_toggle_default.clicked.connect(self._on_toggle_default)
+        
+        h_layout_def.addWidget(self.lbl_status_def)
+        h_layout_def.addStretch()
+        h_layout_def.addWidget(self.btn_toggle_default)
+        layout_default.addLayout(h_layout_def)
+        main_layout.addWidget(group_default)
+        
         main_layout.addStretch()
         
         # 하단 닫기 버튼
         btn_close = QPushButton("닫기")
+        btn_close.setFixedWidth(80)
         btn_close.clicked.connect(self.close)
         
         bottom_layout = QHBoxLayout()
@@ -45,57 +67,50 @@ class SettingsDialog(QDialog):
         main_layout.addLayout(bottom_layout)
 
     def _update_ui_state(self):
-        is_reg = is_context_menu_registered()
-        
-        red_btn_style = """
-            QPushButton {
-                background-color: #c0392b;
-                color: #ffffff;
-                border: 1px solid #a93226;
-                border-radius: 4px;
-                padding: 5px 12px;
-                font-weight: bold;
-            }
-            QPushButton:hover { background-color: #e74c3c; }
-            QPushButton:pressed { background-color: #922b21; }
-        """
-        
-        blue_btn_style = """
-            QPushButton {
-                background-color: #0984e3;
-                color: #ffffff;
-                border: 1px solid #074b83;
-                border-radius: 4px;
-                padding: 5px 12px;
-                font-weight: bold;
-            }
-            QPushButton:hover { background-color: #0fbcf9; }
-            QPushButton:pressed { background-color: #0652dd; }
-        """
+        # 스타일 정의
+        red_style = "background-color: #c0392b; color: white; border-radius: 4px; padding: 5px 12px; font-weight: bold;"
+        blue_style = "background-color: #0984e3; color: white; border-radius: 4px; padding: 5px 12px; font-weight: bold;"
 
+        # 1. 우클릭 메뉴 상태
+        is_reg = is_context_menu_registered()
         if is_reg:
-            self.lbl_status.setText("현재 상태: <b><font color='#4CAF50'>등록됨 (사용 중)</font></b>")
-            self.btn_toggle_registry.setText("우클릭 메뉴 해제하기")
-            self.btn_toggle_registry.setStyleSheet(red_btn_style)
+            self.lbl_status.setText("현재 상태: <b><font color='#4CAF50'>등록됨</font></b>")
+            self.btn_toggle_registry.setText("우클릭 메뉴 해제")
+            self.btn_toggle_registry.setStyleSheet(red_style)
         else:
-            self.lbl_status.setText("현재 상태: <b><font color='#F44336'>해제됨 (미사용)</font></b>")
-            self.btn_toggle_registry.setText("우클릭 메뉴 등록하기")
-            self.btn_toggle_registry.setStyleSheet(blue_btn_style)
-            
+            self.lbl_status.setText("현재 상태: <b><font color='#F44336'>해제됨</font></b>")
+            self.btn_toggle_registry.setText("우클릭 메뉴 등록")
+            self.btn_toggle_registry.setStyleSheet(blue_style)
         self.is_registered = is_reg
+
+        # 2. 기본 프로그램 상태
+        is_def = is_default_program_registered()
+        if is_def:
+            self.lbl_status_def.setText("현재 상태: <b><font color='#4CAF50'>등록됨</font></b>")
+            self.btn_toggle_default.setText("등록 정보 삭제")
+            self.btn_toggle_default.setStyleSheet(red_style)
+        else:
+            self.lbl_status_def.setText("현재 상태: <b><font color='#F44336'>해제됨</font></b>")
+            self.btn_toggle_default.setText("프로그램 등록")
+            self.btn_toggle_default.setStyleSheet(blue_style)
+        self.is_default_reg = is_def
 
     def _on_toggle_registry(self):
         if self.is_registered:
             ok, msg = unregister_context_menu()
-            if ok:
-                QMessageBox.information(self, "성공", "Windows 탐색기 우클릭 메뉴에서 성공적으로 제거되었습니다.")
-            else:
-                QMessageBox.warning(self, "오류", msg)
+            if ok: QMessageBox.information(self, "성공", "탐색기 우클릭 메뉴에서 제거되었습니다.")
         else:
             ok, msg = register_context_menu()
-            if ok:
-                QMessageBox.information(self, "성공", "Windows 탐색기 우클릭 메뉴에 성공적으로 추가되었습니다.\n이제 이미지 파일 우클릭 시 'DS뷰어로 변환' 메뉴를 사용할 수 있습니다.")
-            else:
-                QMessageBox.warning(self, "오류", msg)
-                
+            if ok: QMessageBox.information(self, "성공", "탐색기 우클릭 메뉴에 등록되었습니다.")
+        self._update_ui_state()
+
+    def _on_toggle_default(self):
+        if self.is_default_reg:
+            ok, msg = unregister_default_program()
+            if ok: QMessageBox.information(self, "성공", msg)
+        else:
+            ok, msg = register_default_program()
+            if ok: 
+                QMessageBox.information(self, "성공", 
+                    msg + "\n\n이제 윈도우 설정의 '기본 앱' 또는 파일 우클릭 > '연결 프로그램'에서\nDS Image Viewer를 선택할 수 있습니다.")
         self._update_ui_state()
