@@ -2,6 +2,14 @@
 
 ## 2026-05-16 (Sat)
 
+### [v1.00.04] - Build at 03:25:35
+- multiprocessing.freeze_support 추가 및 빌드 최적화 유지
+
+
+### [v1.00.03] - Build at 03:19:01
+- DS Image Viewer v1.00.03 최종 정식 릴리즈
+
+
 ### [v1.00.02] - Build at 03:12:52
 - DS Image Viewer v1.00.01 정식 릴리즈
 

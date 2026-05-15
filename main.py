@@ -29,7 +29,12 @@ from core.license import check_license, get_hwid
 from core.settings import settings
 
 
+import multiprocessing
+
 def main():
+    # PyInstaller 빌드 시 멀티프로세싱(ProcessPoolExecutor) 지원을 위해 필수 호출
+    multiprocessing.freeze_support()
+
     # 1. 초기 파일 및 실행 모드 인수 확인 (무거운 임포트 전 가장 먼저 수행)
     is_convert_mode = False
     target_files = []
@@ -92,7 +97,7 @@ def main():
 
     # Windows 작업 표시줄에 독립된 아이콘으로 표시되도록 설정
     try:
-        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID('ds.imageviewer.v1')
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID('ds.imageviewer.v2')
     except Exception:
         pass
 
