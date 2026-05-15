@@ -1,6 +1,8 @@
 from PySide6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLabel, 
                                 QPushButton, QGroupBox, QMessageBox)
+from PySide6.QtGui import QPixmap, QIcon
 from PySide6.QtCore import Qt
+import os
 from core.registry_mgr import (register_context_menu, unregister_context_menu, is_context_menu_registered,
                                register_default_program, unregister_default_program, is_default_program_registered)
 
@@ -8,7 +10,7 @@ class SettingsDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("환경설정 (Settings)")
-        self.resize(450, 320)
+        self.resize(450, 420)
         self._init_ui()
         self._update_ui_state()
 
@@ -55,16 +57,42 @@ class SettingsDialog(QDialog):
         main_layout.addWidget(group_default)
         
         main_layout.addStretch()
+
+        # 3. 로고 및 카피라이트 (하단 고정)
+        copyright_layout = QHBoxLayout()
+        copyright_layout.setContentsMargins(10, 10, 10, 10)
+        
+        # 로고
+        self.lbl_logo = QLabel()
+        logo_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 
+                                 "resources", "DASAN Technology Safety logo.png")
+        if os.path.exists(logo_path):
+            pix = QPixmap(logo_path)
+            if not pix.isNull():
+                self.lbl_logo.setPixmap(pix.scaled(35, 35, Qt.KeepAspectRatio, Qt.SmoothTransformation))
+        
+        copyright_layout.addWidget(self.lbl_logo)
+        
+        # 텍스트
+        v_text_layout = QVBoxLayout()
+        lbl_copy1 = QLabel("© 2026 DASAN Technology Safety")
+        lbl_copy1.setStyleSheet("color: #95a5a6; font-weight: bold; font-size: 11px;")
+        lbl_copy2 = QLabel("All Rights Reserved.")
+        lbl_copy2.setStyleSheet("color: #7f8c8d; font-size: 10px;")
+        v_text_layout.addWidget(lbl_copy1)
+        v_text_layout.addWidget(lbl_copy2)
+        v_text_layout.setSpacing(2)
+        
+        copyright_layout.addLayout(v_text_layout)
+        copyright_layout.addStretch()
         
         # 하단 닫기 버튼
         btn_close = QPushButton("닫기")
         btn_close.setFixedWidth(80)
         btn_close.clicked.connect(self.close)
+        copyright_layout.addWidget(btn_close)
         
-        bottom_layout = QHBoxLayout()
-        bottom_layout.addStretch()
-        bottom_layout.addWidget(btn_close)
-        main_layout.addLayout(bottom_layout)
+        main_layout.addLayout(copyright_layout)
 
     def _update_ui_state(self):
         # 스타일 정의

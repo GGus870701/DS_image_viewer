@@ -2,6 +2,10 @@
 
 ## 2026-05-16 (Sat)
 
+### [v1.00.02] - Build at 03:12:52
+- DS Image Viewer v1.00.01 정식 릴리즈
+
+
 ### [v1.00.01] - Build at 03:11:33
 - DS Image Viewer v1.00.00 정식 릴리즈 및 빌드 최적화 적용
 
