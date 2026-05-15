@@ -1,0 +1,36 @@
+{
+  "recent_files": [
+    "C:/Network/사진 샘플\\20260507_161257.jpg",
+    "C:/Network/사진 샘플\\20260507_161259.jpg",
+    "C:/Network/사진 샘플\\20260507_163619.jpg",
+    "C:/Network/사진 샘플\\20260507_163624.jpg",
+    "C:/Network/사진 샘플\\20260507_163627.jpg",
+    "C:/Network/사진 샘플\\20260507_163755.jpg",
+    "C:/Network/사진 샘플\\20260507_161253.jpg",
+    "C:/Network/사진 샘플\\20260507_160846.jpg",
+    "C:/Network/사진 샘플\\20260507_155430.jpg",
+    "C:/Network/사진 샘플\\20260507_155427.jpg"
+  ],
+  "last_open_dir": "C:/Network/사진 샘플",
+  "theme": "dark",
+  "zoom_policy": "auto",
+  "navigator_enabled": true,
+  "split_ratio": 0.5,
+  "convert_settings": {
+    "rotation_mode": 4,
+    "resize_mode": 5,
+    "target_width": 640,
+    "target_height": 480,
+    "unit_is_percent": false,
+    "format_idx": 0,
+    "quality": 80,
+    "preserve_exif": true,
+    "loc_mode": 2,
+    "specific_dir": "",
+    "subfolder_name": "output",
+    "conflict_mode": 0,
+    "use_prefix": true,
+    "prefix_str": "640480_",
+    "cores_index": 0
+  }
+}

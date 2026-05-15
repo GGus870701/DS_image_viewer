@@ -4,29 +4,28 @@
 
 ## 1. 환경 정보 (Environment)
 > [!IMPORTANT]
-> Python 3.14 실험적 버전 사용으로 인해 **PyInstaller**를 주력 빌드 도구로 사용함 (Nuitka는 3.14에서 실행 오류 발생 가능성 높음).
+> PySide6 기반으로 리빌딩됨. 빌드 도구는 PyInstaller를 사용하며 DS_capture의 자동화 패턴을 따름.
 - **Python Path**: `C:\Users\zars8\AppData\Local\Python\pythoncore-3.14-64\python.exe`
 - **Python Version**: 3.14.3
 - **Build Tool**: PyInstaller 6.20.0 이상
+- **GUI Framework**: PySide6 (Qt for Python)
 
 ## 2. 프로젝트 아키텍처 (Architecture)
-- **Main Script**: `DS_image_viewer.py` (CustomTkinter 기반 고성능 이미지 뷰어)
-- **Build Script**: `build.py` (PyInstaller 기반 버전)
-- **Licensing**: HWID 기반 오프라인 라이센스 시스템 (DS 계열 공통 키 사용)
-- **Key Features**: 화면 분할 모드, 네비게이터(미니맵), 이미지 조작(Zoom/Pan)
+- **Main Script**: `main.py` (PySide6 기반 고성능 이미지 뷰어)
+- **Core Engine**: `QGraphicsView` 기반 하드웨어 가속 렌더링
+- **Build Script**: `build.py` (자동 버전 관리 및 walkthrough 기록 기능 포함)
+- **Licensing**: HWID 기반 오프라인 라이센스 시스템 (DASAN_TECHNOLOGY_SAFETY 공통 키)
+- **Key Features**: 화면 분할 모드(SplitView), 네비게이터(Mini-map), EXIF/GPS 정보 패널, TIF Stack 지원
 
 ## 3. 빌드 지침 (Build Instructions)
-- **빌드 도구**: PyInstaller
-- **빌드 모드**:
-    - **PRODUCTION**: `--onefile --windowed` (단일 EXE, 콘솔 숨김, 무압축)
-    - **TEST**: `--onedir --console` (폴더 형태, 콘솔 표시, 빠른 빌드)
-- **빌드 실행 규칙**: 사용자가 명시적으로 "빌드해" 또는 "Build"라고 요청할 때만 `build.py`를 실행함 (자동 빌드 금지).
-- **아이콘**: `ds_viewer_icon.ico` 필수 포함
+- **빌드 도구**: PyInstaller (via `build.py`)
+- **빌드 실행 규칙**: `build.py`를 사용하여 버전 정보를 자동 갱신함.
+- **아이콘**: `resources/ds_viewer.ico` 사용 (인라인 SVG 아이콘은 `ui/icon_data.py` 관리)
 
 ## 4. 작업 시 주의사항 (Important Notes)
 - **파일명 준수**: 파일명은 스페이스 대신 언더바(`_`)를 사용하는 `DS_image_viewer.py` 형식을 유지할 것.
 - **빌드 정보 자동화**: `build.py`가 `DS_image_viewer.py` 내의 `BUILD_VERSION`, `BUILD_DATE`, `BUILD_TIME`을 관리함.
-- **라이센스**: `app_name`은 `"DS_IMAGE_VIEWER"`로 고정됨.
+- **라이센스**: `SECRET_KEY`는 모든 앱 공통(`DASAN_TECHNOLOGY_SAFETY_SECRET_KEY_@!`)이며, `app_name`은 `"DS_IMAGE_VIEWER"` 또는 `"ALL_ACCESS"`를 허용함.
 
 ## 5. UI/UX 및 아이콘 지침 (UI/UX & Icons)
 - **작업표시줄 그룹화**: `AppUserModelID`를 `'ds.imageviewer.v1'`으로 설정하여 작업표시줄에서 독립된 아이콘으로 표시되도록 함.

@@ -15,14 +15,8 @@ import importlib.util
 import glob
 import inspect
 import gc
-import ezdxf             # [중요] 플러그인 종속성 강제 포함
-from ezdxf import bbox    # [중요] 플러그인 종속성 강제 포함
-import ezdxf.math         # [추가]
-import ezdxf.colors       # [추가]
-import ezdxf.fonts        # [추가]
-import ezdxf.path         # [추가]
-import ezdxf.render       # [추가]
 from plugin_interface import BasePlugin
+import tksvg
 
 # --- [빌드 정보] ---
 BUILD_VERSION = "1.00.18"
@@ -74,7 +68,7 @@ CONFIG_FILE = os.path.join(BASE_DIR, "settings.json")
 LICENSE_CENTRAL_DIR = r"C:\license"
 
 # --- [라이센스 시스템] ---
-SECRET_KEY = "DS_CAPTURE_SECRET_KEY_2026_@!" # DS 계열 공통 키 사용
+SECRET_KEY = "DASAN_TECHNOLOGY_SAFETY_SECRET_KEY_@!" # DS 계열 공통 키 사용
 
 def get_hwid():
     """기기 고유 정보를 조합하여 해싱된 HWID 생성 (첫 번째 장치 기반 동기화)"""
@@ -110,7 +104,7 @@ def check_license(app_name):
                 
                 for data in license_list:
                     if data.get('hwid') != hwid: continue
-                    if data.get('app_name') != app_name:
+                    if data.get('app_name') not in [app_name, "ALL_ACCESS"]:
                         fail_reason = f"해당 라이센스는 {data.get('app_name')}용입니다."
                         continue
                     
@@ -186,6 +180,7 @@ class ImageViewer(ctk.CTk):
         
         # 상태 변수
         self.current_image_path = None
+        self.current_img = None
         self.nav_thumb_cache = {} # {(path, size): photo}
         self.max_nav_cache = 5     # 캐시 최대 개수 제한
         self.nav_img_id = None
@@ -197,6 +192,7 @@ class ImageViewer(ctk.CTk):
         self.rename_history = []  # 이름 변경 히스토리 (Undo용)
         self.split_mode = False   # 화면 분할 모드 여부
         self.second_img = None    # 분할 모드용 두 번째 이미지
+        self.left_index = -1      # 분할 모드 왼쪽 인덱스
         self.right_index = -1     # 분할 모드 오른쪽 인덱스
         self.active_split = "left" # 최근 클릭한 분할 화면 ("left" or "right")
         
@@ -221,12 +217,14 @@ class ImageViewer(ctk.CTk):
         self.processed_img_l = None # 회전/반전이 적용된 캐시 이미지 (좌)
         self.processed_img_r = None # 회전/반전이 적용된 캐시 이미지 (우)
         self.processed_img_main = None # 회전/반전이 적용된 캐시 이미지 (단일)
+        self._last_key_processed_img_l = None
+        self._last_key_processed_img_r = None
+        self._last_key_processed_img_main = None
         self.last_rot_state = None # 마지막으로 처리된 회전 상태 저장
         
         self.is_panning = False
         self.pan_start_x = 0
         self.pan_start_y = 0
-        self.dxf_obj_color_mode = "original" # "original", "black", "white"
         
         # 성능 최적화용 상태 변수
         self.render_timer = None # 고화질 전환 예약용
@@ -241,6 +239,7 @@ class ImageViewer(ctk.CTk):
         self.plugins = []
         self.load_plugins()
         
+        self.load_icons()
         self.setup_ui()
         
         # 인자로 파일이 넘어온 경우 (연결 프로그램 실행)
@@ -252,47 +251,29 @@ class ImageViewer(ctk.CTk):
         self.menu_frame = ctk.CTkFrame(self, height=40, corner_radius=0)
         self.menu_frame.pack(side="top", fill="x")
         
-        self.btn_open = ctk.CTkButton(self.menu_frame, text="파일 열기", width=100, height=32, font=UI_FONT_BOLD, command=self.open_file)
+        self.btn_open = ctk.CTkButton(self.menu_frame, text="파일 열기", width=110, height=32, font=UI_FONT_BOLD, 
+                                      image=self.icons.get("open"), compound="left", command=self.open_file)
         self.btn_open.pack(side="left", padx=10, pady=5)
 
-        self.btn_split = ctk.CTkButton(self.menu_frame, text="화면 분할", width=100, height=32, font=UI_FONT_BOLD, command=self.toggle_split_mode)
+        self.btn_split = ctk.CTkButton(self.menu_frame, text="화면 분할", width=110, height=32, font=UI_FONT_BOLD, 
+                                       image=self.icons.get("split"), compound="left", command=self.toggle_split_mode)
         self.btn_split.pack(side="left", padx=5, pady=5)
 
-        # 화면 맞춤 버튼을 화면 분할과 회전 사이로 배치
-        self.btn_fit = ctk.CTkButton(self.menu_frame, text="화면 맞춤", width=100, height=32, font=UI_FONT_BOLD, 
+        # 화면 맞춤 버튼
+        self.btn_fit = ctk.CTkButton(self.menu_frame, text="화면 맞춤", width=110, height=32, font=UI_FONT_BOLD, 
+                                     image=self.icons.get("fit"), compound="left",
                                      fg_color="#34495e", hover_color="#2c3e50", command=self.set_fit_mode)
         self.btn_fit.pack(side="left", padx=5, pady=5)
 
-        self.btn_rotate = ctk.CTkButton(self.menu_frame, text="↻ 회전", width=80, height=32, font=UI_FONT_BOLD, fg_color="#576574", command=self.rotate_image)
+        self.btn_rotate = ctk.CTkButton(self.menu_frame, text="회전", width=80, height=32, font=UI_FONT_BOLD, 
+                                        image=self.icons.get("rotate"), compound="left",
+                                        fg_color="#576574", command=self.rotate_image)
         self.btn_rotate.pack(side="left", padx=5, pady=5)
 
-        self.btn_flip = ctk.CTkButton(self.menu_frame, text="⇄ 반전", width=80, height=32, font=UI_FONT_BOLD, fg_color="#576574", command=self.flip_image)
+        self.btn_flip = ctk.CTkButton(self.menu_frame, text="반전", width=80, height=32, font=UI_FONT_BOLD, 
+                                      image=self.icons.get("flip"), compound="left",
+                                      fg_color="#576574", command=self.flip_image)
         self.btn_flip.pack(side="left", padx=5, pady=5)
-
-        # 레이어 버튼 (우측 상단)
-        self.btn_layers = ctk.CTkButton(self.menu_frame, text="LAYER", width=100, 
-                                        fg_color="#27ae60", hover_color="#2ecc71", 
-                                        font=UI_FONT_BOLD,
-                                        command=self.toggle_layer_panel)
-        self.btn_layers.pack(side="right", padx=5, pady=5)
-        self.btn_layers.pack_forget() # 기본적으로는 숨김
-
-        # 배경색 전환 버튼 (레이어 버튼 옆)
-        self.btn_bg_toggle = ctk.CTkButton(self.menu_frame, text="배경색 전환", width=120,
-                                           fg_color="#000000", text_color="#FFFFFF",
-                                           hover_color="#1a1a1a", border_width=1,
-                                           font=UI_FONT_BOLD,
-                                           command=self.toggle_dxf_background)
-        self.btn_bg_toggle.pack(side="right", padx=5, pady=5)
-        self.btn_bg_toggle.pack_forget() # 기본적으로는 숨김
-
-        # 객체 색상 전환 버튼 (배경색 전환 버튼 왼쪽)
-        self.btn_obj_color_toggle = ctk.CTkButton(self.menu_frame, text="객체 색상: 원본", width=120,
-                                                 fg_color="#34495e", hover_color="#2c3e50",
-                                                 font=UI_FONT_BOLD,
-                                                 command=self.toggle_dxf_obj_color)
-        self.btn_obj_color_toggle.pack(side="right", padx=5, pady=5)
-        self.btn_obj_color_toggle.pack_forget() 
 
         # 중앙 메인 컨테이너 (이미지 + 정보패널)
         self.main_container = ctk.CTkFrame(self, fg_color="transparent")
@@ -381,10 +362,12 @@ class ImageViewer(ctk.CTk):
         self.lbl_status.pack_forget() # 하단 파일명 표시 안 함 (상단으로 이동)
         
         self.btn_info = ctk.CTkButton(self.status_frame, text="ⓘ INFO", width=100, height=32, font=UI_FONT_BOLD, 
+                                      image=self.icons.get("info"), compound="left",
                                       fg_color="#4b6584", hover_color="#576574", command=self.toggle_info_panel)
         self.btn_info.pack(side="left", padx=15, pady=5)
 
         self.btn_gps = ctk.CTkButton(self.status_frame, text="📍 GPS", width=100, height=32, font=UI_FONT_BOLD, 
+                                     image=self.icons.get("gps"), compound="left",
                                      fg_color="#eb4d4b", hover_color="#ff7979", command=self.show_gps_menu)
         self.btn_gps.pack(side="left", padx=5, pady=5)
 
@@ -427,6 +410,27 @@ class ImageViewer(ctk.CTk):
         self.bind("<Left>", lambda e: self.prev_image())
         self.bind("<Right>", lambda e: self.next_image())
         self.bind("<Control-z>", lambda e: self.undo_rename())
+
+    def load_icons(self):
+        """assets/icons 폴더에서 아이콘 로드 (SVG 우선)"""
+        self.icons = {}
+        icon_names = ["open", "split", "fit", "rotate", "flip", "gps", "info", "layer"]
+        
+        for name in icon_names:
+            try:
+                # 1. SVG 우선 확인
+                svg_path = get_resource_path(os.path.join("assets", "icons", f"{name}.svg"))
+                if os.path.exists(svg_path):
+                    # tksvg를 사용하여 로드
+                    self.icons[name] = tksvg.SvgImage(file=svg_path, scale=1.0) # 24x24 기준
+                else:
+                    # 2. PNG 확인 (기존 로직)
+                    png_path = get_resource_path(os.path.join("assets", "icons", f"{name}.png"))
+                    if os.path.exists(png_path):
+                        img = Image.open(png_path)
+                        self.icons[name] = ctk.CTkImage(light_image=img, dark_image=img, size=(20, 20))
+            except Exception as e:
+                print(f"Icon load error ({name}): {e}")
 
     def open_file(self):
         from tkinter import filedialog
@@ -489,19 +493,6 @@ class ImageViewer(ctk.CTk):
             screen_w = self.winfo_screenwidth()
             screen_h = self.winfo_screenheight()
             
-            # 파일 확장자에 따른 버튼 노출 제어
-            ext = os.path.splitext(path)[1].lower()
-            if ext in ('.dxf', '.dwg'):
-                self.btn_layers.pack(side="right", padx=5, pady=5)
-                self.btn_bg_toggle.pack(side="right", padx=5, pady=5)
-                self.btn_obj_color_toggle.pack(side="right", padx=5, pady=5)
-                self.update_bg_toggle_ui() # 버튼 스타일 업데이트
-            else:
-                self.btn_layers.pack_forget()
-                self.btn_bg_toggle.pack_forget()
-                self.btn_obj_color_toggle.pack_forget()
-                if self.show_info_panel and getattr(self, '_current_sidebar_type', '') == 'layer':
-                    self.toggle_info_panel() # 레이어 창 열려있으면 닫기
             img_w, img_h = self.current_img.size
             
             if img_w > screen_w or img_h > screen_h:
@@ -537,49 +528,6 @@ class ImageViewer(ctk.CTk):
         except Exception as e:
             from tkinter import messagebox
             messagebox.showerror("오류", f"이미지를 불러올 수 없습니다:\n{str(e)}")
-
-    def toggle_dxf_background(self):
-        """DXF 플러그인의 배경색을 전환함"""
-        for plugin in self.plugins:
-            if plugin.name == "DXF 뷰어":
-                if hasattr(plugin, 'toggle_background'):
-                    plugin.toggle_background()
-                    self.update_bg_toggle_ui()
-                    break
-
-    def toggle_dxf_obj_color(self):
-        """DXF 객체 색상 전환 (원본 -> 검정 -> 흰색 -> 원본)"""
-        modes = ["original", "black", "white"]
-        idx = (modes.index(self.dxf_obj_color_mode) + 1) % len(modes)
-        self.dxf_obj_color_mode = modes[idx]
-        
-        # 버튼 텍스트 업데이트
-        labels = {"original": "객체 색상: 원본", "black": "객체 색상: 검정", "white": "객체 색상: 흰색"}
-        self.btn_obj_color_toggle.configure(text=labels[self.dxf_obj_color_mode])
-        
-        # 플러그인에 상태 전달 및 재렌더링
-        for plugin in self.plugins:
-            if plugin.name == "DXF 뷰어":
-                if hasattr(plugin, 'set_object_color_mode'):
-                    plugin.set_object_color_mode(self.dxf_obj_color_mode)
-                    # 기본 이미지(썸네일) 새로고침하여 캐시 동기화
-                    if self.current_image_path:
-                        self.current_img = self.get_image_obj(self.current_image_path)
-                    self.render_image()
-                    break
-
-    def update_bg_toggle_ui(self):
-        """배경색 상태에 따라 버튼 스타일 업데이트 (대비 효과)"""
-        for plugin in self.plugins:
-            if plugin.name == "DXF 뷰어":
-                bg = getattr(plugin, 'bg_color', 'black')
-                if bg == "black":
-                    # 배경이 검은색이면 버튼은 흰색으로 (대비 및 전환 암시)
-                    self.btn_bg_toggle.configure(fg_color="#FFFFFF", text_color="#000000", hover_color="#f0f0f0")
-                else:
-                    # 배경이 흰색이면 버튼은 검은색으로
-                    self.btn_bg_toggle.configure(fg_color="#000000", text_color="#FFFFFF", hover_color="#1a1a1a")
-                break
 
     def format_size(self, bytes):
         """파일 용량을 보기 좋은 단위로 변환"""
@@ -669,10 +617,6 @@ class ImageViewer(ctk.CTk):
         """이미지 정보 패널 토글"""
         self._show_sidebar('info')
 
-    def toggle_layer_panel(self):
-        """레이어 설정 패널 토글"""
-        self._show_sidebar('layer')
-
     def _show_sidebar(self, sidebar_type):
         """공통 사이드바 노출 로직 (타입별 플러그인 연동)"""
         # 현재 열려있는 타입과 같으면 닫기
@@ -697,7 +641,7 @@ class ImageViewer(ctk.CTk):
         self._current_sidebar_type = sidebar_type
         
         # 타입에 맞는 플러그인 로드
-        target_plugin = "DXF 뷰어" if sidebar_type == 'layer' else "이미지 상세 정보"
+        target_plugin = "이미지 상세 정보"
 
         for plugin in self.plugins:
             if plugin.name == target_plugin:
@@ -1100,31 +1044,6 @@ class ImageViewer(ctk.CTk):
         
         img_w, img_h = img_obj.size
         target_path = path or self.current_image_path
-
-        # 벡터 포맷(DXF 등) 고화질 재렌더링 지원
-        if not fast and hasattr(self, 'plugins') and target_path:
-            for plugin in self.plugins:
-                if hasattr(plugin, 'render_viewport') and target_path.lower().endswith('.dxf'):
-                    if self.split_mode:
-                        cur_zoom = self.l_zoom if canvas == self.canvas_left else self.r_zoom
-                        cur_off_x = self.l_off_x if canvas == self.canvas_left else self.r_off_x
-                        cur_off_y = self.l_off_y if canvas == self.canvas_left else self.r_off_y
-                    else:
-                        cur_zoom, cur_off_x, cur_off_y = self.zoom_level, self.offset_x, self.offset_y
-                        
-                    v_img = plugin.render_viewport(target_path, canvas_w, canvas_h, cur_zoom, cur_off_x, cur_off_y)
-                    if v_img:
-                        # 회전/반전 상태 적용 (고화질 렌더링 결과물 가공)
-                        rot = self.l_rot if canvas == self.canvas_left else self.r_rot
-                        fli = self.l_flip if canvas == self.canvas_left else self.r_flip
-                        if not self.split_mode: rot, fli = self.rotation, self.flip
-                        
-                        if rot != 0: v_img = v_img.rotate(rot, expand=True)
-                        if fli: v_img = v_img.transpose(Image.FLIP_LEFT_RIGHT)
-
-                        photo = ImageTk.PhotoImage(v_img)
-                        self._update_canvas_item(canvas, photo, 0, 0)
-                        return
 
         # 회전/반전 상태 적용 (성능 최적화를 위한 캐싱 도입)
         rot = self.l_rot if canvas == self.canvas_left else self.r_rot

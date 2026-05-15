@@ -4,7 +4,7 @@ import hmac
 import json
 import os
 
-SECRET_KEY = "DS_CAPTURE_SECRET_KEY_2026_@!"
+SECRET_KEY = "DASAN_TECHNOLOGY_SAFETY_SECRET_KEY_@!"
 APP_NAME = "DS_IMAGE_VIEWER"
 
 def get_hwid():
