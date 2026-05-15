@@ -5,7 +5,6 @@ PySide6 기반 고성능 이미지 뷰어
 import sys
 import os
 import ctypes
-import ctypes
 
 # 작업표시줄 아이콘 그룹화 및 타이틀바 다크 모드 설정 (Agents.md 지침)
 try:
@@ -53,7 +52,6 @@ def main():
     global _app_mutex
     
     if is_convert_mode:
-        import ctypes
         from PySide6.QtNetwork import QLocalSocket
         import time
         

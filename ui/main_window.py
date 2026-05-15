@@ -195,19 +195,12 @@ class MainWindow(QMainWindow):
         tb.addAction(self._flip_act)
         tb.addSeparator()
 
-        # ── 이미지 작업 도구 (크기 변환 + 편집기) ──
+        # ── 이미지 작업 도구 ──
         self._batch_convert_act = QAction(get_qicon("batch_convert"), "이미지 크기 변환 (B)", self)
         self._batch_convert_act.setStatusTip("이미지 일괄 변환기(리사이즈 등)를 실행합니다.")
         self._batch_convert_act.setShortcut(Qt.Key_B)
         self._batch_convert_act.triggered.connect(self._launch_batch_converter)
         tb.addAction(self._batch_convert_act)
-
-        self._editor_act = QAction(get_qicon("image_editor"), "이미지 편집기 (E)", self)
-        self._editor_act.setStatusTip("이미지 편집기를 실행합니다. (추후 업데이트 예정)")
-        self._editor_act.setShortcut(Qt.Key_E)
-        # self._editor_act.triggered.connect(...)
-        tb.addAction(self._editor_act)
-        
         tb.addSeparator()
 
         # ── 환경설정 ──
@@ -477,13 +470,6 @@ class MainWindow(QMainWindow):
         fit_act.triggered.connect(vp.fit_in_view)
         menu.addAction(fit_act)
         menu.exec(self._lbl_zoom.mapToGlobal(self._lbl_zoom.rect().bottomLeft()))
-
-    # ──────────────────────────────────────────────
-    # 이미지 편집기 (추후 연동)
-    # ──────────────────────────────────────────────
-    def _launch_editor(self):
-        QMessageBox.information(self, "준비 중",
-                                "이미지 편집기는 추후 업데이트에서 제공됩니다.")
 
     # ──────────────────────────────────────────────
     # 슬롯
