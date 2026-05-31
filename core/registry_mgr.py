@@ -31,7 +31,7 @@ def register_context_menu():
             if os.path.exists(pythonw_exe):
                 python_exe = pythonw_exe
         exe_path = f'"{python_exe}" "{os.path.abspath(sys.argv[0])}"'
-        icon_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "resources", "ds_viewer_icon.ico")
+        icon_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets", "ds_viewer_icon.ico")
 
     try:
         base_key = r"Software\Classes\SystemFileAssociations\image\shell\DSViewer"

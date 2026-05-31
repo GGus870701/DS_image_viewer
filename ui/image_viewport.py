@@ -10,7 +10,7 @@ DS Image Viewer — QGraphicsView 기반 고성능 이미지 뷰어 위젯
   - TIF Stack: 다중 프레임 탐색 (PageUp/Down, 슬라이더)
 """
 import os
-from PIL import Image
+from PIL import Image, ImageOps
 
 from PySide6.QtWidgets import (QGraphicsView, QGraphicsScene,
                                 QGraphicsPixmapItem, QSizePolicy)
@@ -19,13 +19,19 @@ from PySide6.QtCore import Qt, Signal, QTimer, QPointF
 
 
 def _pil_to_qpixmap(img: Image.Image) -> QPixmap:
-    """PIL Image → QPixmap 변환 (RGBA 안전 처리)"""
+    """PIL Image → QPixmap 변환 (RGBA 안전 처리 및 bytesPerLine 명시)"""
     if img.mode not in ('RGB', 'RGBA'):
         img = img.convert('RGBA')
     data = img.tobytes('raw', img.mode)
-    fmt = QImage.Format.Format_RGBA8888 if img.mode == 'RGBA' else QImage.Format.Format_RGB888
-    qimg = QImage(data, img.width, img.height, fmt)
-    return QPixmap.fromImage(qimg)
+    if img.mode == 'RGBA':
+        fmt = QImage.Format.Format_RGBA8888
+        bpl = img.width * 4
+    else:
+        fmt = QImage.Format.Format_RGB888
+        bpl = img.width * 3
+    qimg = QImage(data, img.width, img.height, bpl, fmt)
+    # data 버퍼가 GC되지 않도록 깊은 복사본(copy)을 반환
+    return QPixmap.fromImage(qimg.copy())
 
 
 class ImageViewport(QGraphicsView):
@@ -106,7 +112,12 @@ class ImageViewport(QGraphicsView):
                 img.seek(self._frame_index)
                 self.frame_changed.emit(self._frame_index, self._frame_count)
 
-            # 모드 통일 (EXIF 회전 포함)
+            # EXIF 방향/회전 적용
+            try:
+                img = ImageOps.exif_transpose(img)
+            except Exception:
+                pass
+            # 모드 통일
             img = self._normalize_pil(img)
 
             self._pil_img = img

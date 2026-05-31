@@ -25,7 +25,7 @@ except Exception:
     pass
 
 from core.version import BUILD_VERSION
-from core.license import check_license, get_hwid
+from license_core import check_license
 from core.settings import settings
 
 
@@ -93,7 +93,6 @@ def main():
     from PySide6.QtGui import QIcon
     from PySide6.QtNetwork import QLocalServer
     from ui.fonts import UI_FONT_NORMAL, UI_FONT_NAME
-    from ui.license_dialog import show_license_error
 
     # Windows 작업 표시줄에 독립된 아이콘으로 표시되도록 설정
     try:
@@ -111,19 +110,13 @@ def main():
     app.setFont(UI_FONT_NORMAL)
 
     # 앱 아이콘 설정
-    ico_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "resources", "ds_viewer.ico")
+    ico_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "ds_viewer.ico")
     if os.path.exists(ico_path):
         app.setWindowIcon(QIcon(ico_path))
 
     # 4. 라이센스 체크
     is_valid, lic_data = check_license("DS_IMAGE_VIEWER")
     if not is_valid:
-        hwid = get_hwid()
-        msg = (
-            "유효한 라이센스를 찾을 수 없습니다.\n"
-            "프로그램을 사용하려면 전용 라이센스 파일(*.lic)이 필요합니다."
-        )
-        show_license_error(hwid, msg if isinstance(lic_data, str) and not lic_data else lic_data or msg)
         return
 
     # 5. 변환기 모드 실행 (서버 인스턴스)

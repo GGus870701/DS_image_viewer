@@ -40,7 +40,7 @@ class MainWindow(QMainWindow):
         self.setAcceptDrops(True)
 
         # 윈도우 아이콘 설정 (Taskbar 및 Window Title)
-        ico_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "resources", "ds_viewer.ico")
+        ico_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets", "ds_viewer.ico")
         if os.path.exists(ico_path):
             self.setWindowIcon(QIcon(ico_path))
 
@@ -338,7 +338,7 @@ class MainWindow(QMainWindow):
         self._act_kakao.setVisible(visible)
         self._act_google.setVisible(visible)
 
-    def _launch_batch_converter(self):
+    def _launch_batch_converter(self, checked=False):
         import sys
         import subprocess
         # 배포된 exe인지 스크립트인지 판별
@@ -356,7 +356,7 @@ class MainWindow(QMainWindow):
         # 뷰어를 블로킹하지 않도록 subprocess.Popen 사용
         subprocess.Popen(cmd)
 
-    def _open_settings(self):
+    def _open_settings(self, checked=False):
         dlg = SettingsDialog(self)
         dlg.exec()
 
@@ -420,29 +420,29 @@ class MainWindow(QMainWindow):
     # ──────────────────────────────────────────────
     # 이미지 탐색
     # ──────────────────────────────────────────────
-    def _next_image(self):
+    def _next_image(self, checked=False):
         path = self._model.next()
         if path:
             self._get_active_viewport().load_image(path)
 
-    def _prev_image(self):
+    def _prev_image(self, checked=False):
         path = self._model.prev()
         if path:
             self._get_active_viewport().load_image(path)
 
-    def _on_fit_clicked(self):
+    def _on_fit_clicked(self, checked=False):
         """현재 화면에 맞게 확대/축소 (활성 뷰포트 기준)"""
         self._get_active_viewport().fit_in_view()
 
-    def _on_rotate_cw_clicked(self):
+    def _on_rotate_cw_clicked(self, checked=False):
         """시계 방향 회전 (활성 뷰포트 기준)"""
         self._get_active_viewport().rotate_cw()
 
-    def _on_rotate_ccw_clicked(self):
+    def _on_rotate_ccw_clicked(self, checked=False):
         """반시계 방향 회전 (활성 뷰포트 기준)"""
         self._get_active_viewport().rotate_ccw()
 
-    def _on_flip_clicked(self):
+    def _on_flip_clicked(self, checked=False):
         """좌우 반전 (활성 뷰포트 기준)"""
         self._get_active_viewport().flip_horizontal()
 
@@ -532,6 +532,14 @@ class MainWindow(QMainWindow):
     # 드래그 앤 드롭
     # ──────────────────────────────────────────────
     def dragEnterEvent(self, event):
+        if event.mimeData().hasUrls():
+            urls = event.mimeData().urls()
+            if urls and urls[0].toLocalFile().lower().endswith(SUPPORTED_EXTS):
+                event.acceptProposedAction()
+                return
+        event.ignore()
+
+    def dragMoveEvent(self, event):
         if event.mimeData().hasUrls():
             urls = event.mimeData().urls()
             if urls and urls[0].toLocalFile().lower().endswith(SUPPORTED_EXTS):

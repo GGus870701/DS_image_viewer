@@ -3,6 +3,7 @@ from PySide6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLabel,
 from PySide6.QtGui import QPixmap, QIcon
 from PySide6.QtCore import Qt
 import os
+import sys
 from core.registry_mgr import (register_context_menu, unregister_context_menu, is_context_menu_registered,
                                register_default_program, unregister_default_program, is_default_program_registered)
 
@@ -64,8 +65,11 @@ class SettingsDialog(QDialog):
         
         # 로고
         self.lbl_logo = QLabel()
-        logo_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 
-                                 "resources", "DASAN Technology Safety logo.png")
+        if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+            logo_path = os.path.join(sys._MEIPASS, "DASAN_logo.png")
+        else:
+            logo_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 
+                                     "build_core", "assets", "DASAN_logo.png")
         if os.path.exists(logo_path):
             pix = QPixmap(logo_path)
             if not pix.isNull():
