@@ -29,6 +29,7 @@ from license_core import check_license
 from core.settings import settings
 
 
+_app_mutex = None
 import multiprocessing
 
 def main():

@@ -37,7 +37,6 @@ class MainWindow(QMainWindow):
         self.setWindowTitle(f"DS Image Viewer v{ver} - [{user}]")
         self.resize(1280, 800)
         self.setStyleSheet(get_stylesheet())
-        self.setAcceptDrops(True)
 
         # 윈도우 아이콘 설정 (Taskbar 및 Window Title)
         ico_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets", "ds_viewer.ico")
@@ -266,6 +265,7 @@ class MainWindow(QMainWindow):
         self._split_view.active_changed.connect(self._on_split_active_changed)
 
         self._model.index_changed.connect(self._on_model_index_changed)
+        self._model.rename_done.connect(self._on_model_rename_done)
 
     # ──────────────────────────────────────────────
     # 파일 로드
@@ -492,8 +492,33 @@ class MainWindow(QMainWindow):
         """정보 패널에서 파일명이 변경된 경우 처리"""
         if self._model.update_image_path(old_path, new_path):
             self.setWindowTitle(f"DS Image Viewer - {os.path.basename(new_path)}")
-            self._update_status_bar()
             self._update_recent_menu()
+            
+            filename = os.path.basename(new_path)
+            idx = self._model.index
+            cnt = self._model.count
+            self._lbl_file.setText(f"  {filename}  ({idx + 1} / {cnt})")
+            
+            for vp in [self._viewport, self._split_view.left_viewport, self._split_view.right_viewport]:
+                if getattr(vp, "current_path", None) == old_path:
+                    vp._current_path = new_path
+
+    def _on_model_rename_done(self, old_path: str, new_path: str):
+        """모델에서 파일명 변경 완료 시 (Undo 등) 뷰포트 및 UI 동기화"""
+        for vp in [self._viewport, self._split_view.left_viewport, self._split_view.right_viewport]:
+            if getattr(vp, "current_path", None) == old_path:
+                vp._current_path = new_path
+                
+        self.setWindowTitle(f"DS Image Viewer - {os.path.basename(new_path)}")
+        self._update_recent_menu()
+        
+        filename = os.path.basename(new_path)
+        idx = self._model.index
+        cnt = self._model.count
+        self._lbl_file.setText(f"  {filename}  ({idx + 1} / {cnt})")
+        
+        if self._info_panel.isVisible() and getattr(self._info_panel, "_current_path", None) == old_path:
+            self._info_panel.set_image(new_path)
 
     def _on_image_loaded(self, path: str):
         settings.add_recent_file(path)
@@ -528,32 +553,6 @@ class MainWindow(QMainWindow):
         # 모델에서 인덱스가 바뀌면 상태바 갱신 (탐색 키로 변경 시)
         pass
 
-    # ──────────────────────────────────────────────
-    # 드래그 앤 드롭
-    # ──────────────────────────────────────────────
-    def dragEnterEvent(self, event):
-        if event.mimeData().hasUrls():
-            urls = event.mimeData().urls()
-            if urls and urls[0].toLocalFile().lower().endswith(SUPPORTED_EXTS):
-                event.acceptProposedAction()
-                return
-        event.ignore()
-
-    def dragMoveEvent(self, event):
-        if event.mimeData().hasUrls():
-            urls = event.mimeData().urls()
-            if urls and urls[0].toLocalFile().lower().endswith(SUPPORTED_EXTS):
-                event.acceptProposedAction()
-                return
-        event.ignore()
-
-    def dropEvent(self, event):
-        urls = event.mimeData().urls()
-        if urls:
-            path = urls[0].toLocalFile()
-            if os.path.isfile(path):
-                self._load_file(path)
-                event.acceptProposedAction()
 
     # ──────────────────────────────────────────────
     # 키보드

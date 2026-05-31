@@ -144,6 +144,7 @@ class ImageModel(QObject):
         if old_path in self._files:
             idx = self._files.index(old_path)
             self._files[idx] = new_path
+            self._rename_history.append((old_path, new_path))
             if self._index == idx:
                 self.rename_done.emit(old_path, new_path)
             return True
