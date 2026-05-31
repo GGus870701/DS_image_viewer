@@ -8,7 +8,7 @@ from PIL import Image
 from PIL.ExifTags import TAGS
 
 # plugin_interface에서 BasePlugin 임포트
-from plugin_interface import BasePlugin
+from core.plugin_interface import BasePlugin
 
 class ImageInfoPlugin(BasePlugin):
     name = "이미지 상세 정보"

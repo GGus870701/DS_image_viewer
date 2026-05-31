@@ -3,7 +3,7 @@ from tkinter import messagebox
 import os
 
 # plugin_interface에서 BasePlugin 임포트
-from plugin_interface import BasePlugin
+from core.plugin_interface import BasePlugin
 
 class SimpleInfoPlugin(BasePlugin):
     name = "이미지 정보 플러그인"
