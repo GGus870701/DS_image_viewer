@@ -1,15 +1,15 @@
 {
   "recent_files": [
-    "C:/Network/사진 샘플\\20260507_155152.jpg",
-    "C:/Network/사진 샘플\\20260507_155106.jpg",
-    "C:/Network/사진 샘플\\20260507_155101.jpg",
-    "C:/Network/사진 샘플\\20260507_155047.jpg",
-    "C:/Network/사진 샘플\\20260507_155024.jpg",
-    "C:/Network/사진 샘플\\20260507_155014.jpg",
-    "C:/Network/사진 샘플\\20260507_154912.jpg",
-    "C:/Network/사진 샘플\\20260507_154909.jpg",
+    "C:/Network/사진 샘플\\20260507_154826.jpg",
+    "C:/Network/사진 샘플\\20260507_154745.jpg",
+    "C:/Network/사진 샘플\\20260507_154714.jpg",
+    "C:/Network/사진 샘플\\20260507_154600.jpg",
+    "C:/Network/사진 샘플\\20260507_154528.jpg",
+    "C:/Network/사진 샘플\\20260507_154456.jpg",
+    "C:/Network/사진 샘플\\20260507_154828.jpg",
     "C:/Network/사진 샘플\\20260507_154905.jpg",
-    "C:/Network/사진 샘플\\20260507_154828.jpg"
+    "C:/Network/사진 샘플\\20260507_154909.jpg",
+    "C:/Network/사진 샘플\\15.jpg"
   ],
   "last_open_dir": "C:/Network/사진 샘플",
   "theme": "dark",
@@ -32,5 +32,9 @@
     "use_prefix": true,
     "prefix_str": "640480_",
     "cores_index": 0
+  },
+  "nav_shortcuts": {
+    "arrow_keys": true,
+    "mouse_wheel": true
   }
 }

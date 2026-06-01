@@ -270,7 +270,25 @@ class ConvertWindow(QMainWindow):
         self.btn_start.setStyleSheet(red_btn_style)
         
         self.btn_open_folder = QPushButton("결과 폴더 열기")
-        self.btn_open_folder.setVisible(False)
+        self.btn_open_folder.setMinimumHeight(40)
+        blue_btn_style = """
+            QPushButton {
+                background-color: #0984e3;
+                color: #ffffff;
+                border: 1px solid #076bbb;
+                border-radius: 4px;
+                padding: 5px 10px;
+                font-weight: bold;
+            }
+            QPushButton:hover {
+                background-color: #0fbcf9;
+            }
+            QPushButton:pressed {
+                background-color: #065299;
+            }
+        """
+        self.btn_open_folder.setStyleSheet(blue_btn_style)
+        self.btn_open_folder.hide()
         
         run_layout.addWidget(self.progress_bar)
         run_layout.addWidget(self.lbl_status)
@@ -461,6 +479,10 @@ class ConvertWindow(QMainWindow):
         self.lbl_preview.setText("좌측에서 파일을 선택하면 미리보기가 표시됩니다.")
         self.btn_show_exif.setEnabled(False)
         self.current_exif_info = ""
+        self.btn_open_folder.hide()
+        self.btn_start.show()
+        self.btn_start.setEnabled(True)
+        self.btn_start.setText("변환 시작 (Start)")
 
     def _show_exif_dialog(self):
         dlg = QDialog(self)
@@ -569,7 +591,8 @@ class ConvertWindow(QMainWindow):
             
         self.btn_start.setEnabled(False)
         self.btn_start.setText("변환 중...")
-        self.btn_open_folder.setVisible(False)
+        self.btn_open_folder.hide()
+        self.btn_start.show()
         self.progress_bar.setValue(0)
         
         self.worker = BatchConverterWorker(file_paths, settings, max_workers=cores)
@@ -584,14 +607,16 @@ class ConvertWindow(QMainWindow):
         self.lbl_status.setText(f"[{current}/{total}] {fname} 처리 완료")
 
     def _on_finished(self, success_count, fail_count):
-        self.btn_start.setEnabled(True)
-        self.btn_start.setText("변환 시작 (Start)")
         self.lbl_status.setText(f"완료! (성공: {success_count}, 실패: {fail_count})")
         self.progress_bar.setValue(100)
         
         if success_count > 0:
-            self.btn_open_folder.setVisible(True)
+            self.btn_start.hide()
+            self.btn_open_folder.show()
             self._last_saved_path = self.file_list.item(0).text()
+        else:
+            self.btn_start.setEnabled(True)
+            self.btn_start.setText("변환 시작 (Start)")
 
     def _open_result_folder(self):
         settings = self.get_current_settings()

@@ -49,6 +49,7 @@ class ImageViewport(QGraphicsView):
     load_failed    = Signal(str)
     frame_changed  = Signal(int, int)
     view_changed   = Signal(object, object)  # view_rect, scene_rect
+    wheel_navigated = Signal(int)  # 1: up(prev), -1: down(next)
 
     # 줌 범위
     MIN_ZOOM = 0.01   # 1%
@@ -210,7 +211,7 @@ class ImageViewport(QGraphicsView):
     # 이벤트 처리
     # ──────────────────────────────────────────────────────────
     def wheelEvent(self, event: QWheelEvent):
-        """Ctrl + 휠: 마우스 기준 줌 / 기본 휠: 무시(팬으로 대체)"""
+        """Ctrl + 휠: 마우스 기준 줌 / 기본 휠: 휠 방향에 따라 탐색 신호 발생 (MainWindow에서 처리)"""
         if event.modifiers() == Qt.ControlModifier:
             delta = event.angleDelta().y()
             if delta == 0:
@@ -220,8 +221,12 @@ class ImageViewport(QGraphicsView):
             if self.MIN_ZOOM <= new_scale <= self.MAX_ZOOM:
                 self.scale(factor, factor)
                 self.zoom_changed.emit(self._get_zoom_scale())
+        elif event.modifiers() == Qt.NoModifier:
+            delta = event.angleDelta().y()
+            if delta != 0:
+                self.wheel_navigated.emit(1 if delta > 0 else -1)
+            event.ignore()
         else:
-            # 휠 스크롤 → 이전/다음 이미지 신호 없음 (MainWindow에서 연결)
             event.ignore()
 
     def mouseDoubleClickEvent(self, event):

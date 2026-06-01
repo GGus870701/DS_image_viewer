@@ -1,11 +1,12 @@
 from PySide6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLabel, 
-                                QPushButton, QGroupBox, QMessageBox)
+                                QPushButton, QGroupBox, QMessageBox, QCheckBox)
 from PySide6.QtGui import QPixmap, QIcon
 from PySide6.QtCore import Qt
 import os
 import sys
 from core.registry_mgr import (register_context_menu, unregister_context_menu, is_context_menu_registered,
                                register_default_program, unregister_default_program, is_default_program_registered)
+from core.settings import settings
 
 class SettingsDialog(QDialog):
     def __init__(self, parent=None):
@@ -19,7 +20,29 @@ class SettingsDialog(QDialog):
         main_layout = QVBoxLayout(self)
         main_layout.setSpacing(15)
         
-        # 1. Windows 탐색기 연동 그룹
+        # 1. 이미지 탐색 단축키 설정
+        group_nav = QGroupBox("이미지 탐색 단축키 설정")
+        layout_nav = QVBoxLayout(group_nav)
+        
+        lbl_nav_desc = QLabel("이전/다음 이미지로 넘길 때 사용할 방식을 선택합니다.")
+        lbl_nav_desc.setStyleSheet("color: #AAAAAA;")
+        layout_nav.addWidget(lbl_nav_desc)
+        
+        nav_shortcuts = settings.get("nav_shortcuts", {"arrow_keys": True, "mouse_wheel": True})
+        
+        self.chk_arrow_keys = QCheckBox("키보드 화살표 키 (←, →)")
+        self.chk_arrow_keys.setChecked(nav_shortcuts.get("arrow_keys", True))
+        self.chk_arrow_keys.toggled.connect(self._on_nav_shortcut_changed)
+        layout_nav.addWidget(self.chk_arrow_keys)
+        
+        self.chk_mouse_wheel = QCheckBox("마우스 휠 (위/아래)")
+        self.chk_mouse_wheel.setChecked(nav_shortcuts.get("mouse_wheel", True))
+        self.chk_mouse_wheel.toggled.connect(self._on_nav_shortcut_changed)
+        layout_nav.addWidget(self.chk_mouse_wheel)
+        
+        main_layout.addWidget(group_nav)
+
+        # 2. Windows 탐색기 연동 그룹
         group_explorer = QGroupBox("Windows 탐색기 연동")
         layout_explorer = QVBoxLayout(group_explorer)
         
@@ -146,3 +169,10 @@ class SettingsDialog(QDialog):
                 QMessageBox.information(self, "성공", 
                     msg + "\n\n이제 윈도우 설정의 '기본 앱' 또는 파일 우클릭 > '연결 프로그램'에서\nDS Image Viewer를 선택할 수 있습니다.")
         self._update_ui_state()
+
+    def _on_nav_shortcut_changed(self):
+        nav_shortcuts = {
+            "arrow_keys": self.chk_arrow_keys.isChecked(),
+            "mouse_wheel": self.chk_mouse_wheel.isChecked()
+        }
+        settings.set("nav_shortcuts", nav_shortcuts)

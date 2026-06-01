@@ -24,6 +24,10 @@ _DEFAULTS = {
     "zoom_policy": "auto",          # "auto" = origin/fit 자동, "fit" = 항상 fit
     "navigator_enabled": True,
     "split_ratio": 0.5,
+    "nav_shortcuts": {
+        "arrow_keys": True,
+        "mouse_wheel": True
+    },
     "convert_settings": {
         "rotation_mode": 4,  # EXIF Auto
         "resize_mode": 1,    # Keep Aspect

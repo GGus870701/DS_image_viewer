@@ -247,6 +247,15 @@ class MainWindow(QMainWindow):
         self._next_act.triggered.connect(self._next_image)
         tb.addAction(self._next_act)
 
+        # ── 클립보드 복사 액션 (단축키용) ──
+        self._copy_act = QAction("복사", self)
+        self._copy_act.setShortcut(QKeySequence.Copy)
+        self._copy_act.triggered.connect(self._copy_to_clipboard)
+        self.addAction(self._copy_act)
+        
+        # 초기 단축키 설정 적용
+        self._apply_nav_shortcuts_settings()
+
     # ──────────────────────────────────────────────
     # 시그널 연결
     # ──────────────────────────────────────────────
@@ -256,12 +265,15 @@ class MainWindow(QMainWindow):
         self._viewport.image_loaded.connect(self._on_image_loaded)
         self._viewport.view_changed.connect(self._nav.update_view)
         self._viewport.load_failed.connect(self._on_load_failed)
+        self._viewport.wheel_navigated.connect(self._on_wheel_navigated)
         
         # 분할 뷰포트들
         self._split_view.left_viewport.zoom_changed.connect(self._on_zoom_changed)
         self._split_view.right_viewport.zoom_changed.connect(self._on_zoom_changed)
         self._split_view.left_viewport.view_changed.connect(self._on_viewport_view_changed)
         self._split_view.right_viewport.view_changed.connect(self._on_viewport_view_changed)
+        self._split_view.left_viewport.wheel_navigated.connect(self._on_wheel_navigated)
+        self._split_view.right_viewport.wheel_navigated.connect(self._on_wheel_navigated)
         self._split_view.active_changed.connect(self._on_split_active_changed)
 
         self._model.index_changed.connect(self._on_model_index_changed)
@@ -359,6 +371,7 @@ class MainWindow(QMainWindow):
     def _open_settings(self, checked=False):
         dlg = SettingsDialog(self)
         dlg.exec()
+        self._apply_nav_shortcuts_settings()
 
     def _create_map_toolbar_btn(self, text, bg, fg="white"):
         btn = QToolButton()
@@ -429,6 +442,33 @@ class MainWindow(QMainWindow):
         path = self._model.prev()
         if path:
             self._get_active_viewport().load_image(path)
+
+    def _apply_nav_shortcuts_settings(self):
+        nav_shortcuts = settings.get("nav_shortcuts", {"arrow_keys": True, "mouse_wheel": True})
+        if nav_shortcuts.get("arrow_keys", True):
+            self._prev_act.setShortcut(Qt.Key_Left)
+            self._next_act.setShortcut(Qt.Key_Right)
+        else:
+            self._prev_act.setShortcut(QKeySequence())
+            self._next_act.setShortcut(QKeySequence())
+
+    def _on_wheel_navigated(self, direction: int):
+        nav_shortcuts = settings.get("nav_shortcuts", {"arrow_keys": True, "mouse_wheel": True})
+        if not nav_shortcuts.get("mouse_wheel", True):
+            return
+        if direction > 0:
+            self._prev_image()
+        else:
+            self._next_image()
+
+    def _copy_to_clipboard(self):
+        from PySide6.QtGui import QGuiApplication
+        vp = self._get_active_viewport()
+        if vp and vp._pil_img:
+            pixmap = vp._pixmap_item.pixmap()
+            if not pixmap.isNull():
+                QGuiApplication.clipboard().setPixmap(pixmap)
+                self._status.showMessage("이미지가 클립보드에 복사되었습니다.", 2000)
 
     def _on_fit_clicked(self, checked=False):
         """현재 화면에 맞게 확대/축소 (활성 뷰포트 기준)"""

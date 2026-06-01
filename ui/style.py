@@ -19,7 +19,7 @@ def get_stylesheet() -> str:
         padding: 4px;
     }}
     QToolBar {{
-        background-color: #2f3640;
+        background-color: #0a1220;
         border-bottom: 1px solid #3d3d3d;
         spacing: 5px;
         padding: 5px;
